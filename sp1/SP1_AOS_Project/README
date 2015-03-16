@@ -1,0 +1,47 @@
+You have retrieved these files:
+
+	README		this file
+
+	RUN		a shellscript for testing your program
+
+	header.mak	for use with makemake
+
+	aos.*		test files
+	stdout.*
+	stderr.*
+
+The header.mak file automatically links your code against the support
+library.
+
+You can test your program with the RUN script found here, or with these
+commands (using test file #1 as an example):
+
+   Bourne shell (/bin/sh):
+
+	project2 aos.1 > out.1 2> err.1
+	diff stdout.1 out.1
+	diff stderr.1 err.1
+
+   C shell (/bin/csh):
+
+	(project2 aos.1 > out.1) >& err.1
+	diff stdout.1 out.1
+	diff stderr.1 out.1
+
+Any differences between your output and the test output should be
+corrected before submitting your program.  Note that these test files
+may not test all of your program's functionality.  Be sure to
+exhaustively test your solution.
+
+The support library contains definitions of a number of global
+variables and functions that are needed by the standard C library
+routines and the startup code added by the linker.  This means that it
+cannot be used if you want to use any of the standard C library
+routines for testing purposes (e.g., the printf() routine).  To get
+around this problem, I have created an alternate version of the library
+which doesn't contain the conflicting definitions.  To use it, follow
+the instructions in the header.mak file.  You can either edit
+header.mak and regenerate the Makefile or just edit the Makefile; the
+latter may be the easiest method, as you can regenerate the Makefile
+from header.mak when you are ready to test without the C library
+without having to remember to re-edit the Makefile.

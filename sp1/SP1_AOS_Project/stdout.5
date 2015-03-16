@@ -1,0 +1,99 @@
+A      0000
+B      0002
+C      0006
+D      000C
+E      0010
+F      0012
+In     0014
+Out    0017
+G      0019
+H      001B
+Run    001D
+
+
+Start at: 001D
+
+
+                  #
+                  # A sample AOS program that reads in values for
+                  # variables a, b, c, d, and e, echo prints these
+                  # values, and then implements the multiple
+                  # assignment statement
+                  #
+                  #	F = G = H = -(A*B) + (C/D) - (A%E)
+                  #
+                  # Data areas
+                  #
+0000              A	BSS	1
+0002              B	BSS	2
+0006              C	BSS	3
+000C              D	BSS	2
+0010              E	BSS	1
+0012              F	BSS	1
+                  #
+                  # Subroutines
+                  #
+                  # Read a number and store it at the
+                  # address found on the stack
+                  #
+0014   70         In	READ	Get the number
+0015   13         	STAL	Save it, but leave a copy on the stack
+0016   93         	RET
+                  #
+                  # Print the number found on top of the stack
+                  #
+0017   71         Out	PRT
+0018   93         	RET
+                  #
+                  # More data areas
+                  #
+0019              G	BSS	1
+001B              H	BSS	1
+                  #
+                  # Input initial values
+                  #
+001D   10 0000    Run	LA	A	Put addr of first var onto stack
+0020   92 0014    	CALL	In	Read and save
+0023   92 0017    	CALL	Out	Print, removing from stack
+                  #
+0026   10 0002    	LA	B	Ditto for the other six numbers
+0029   92 0014    	CALL	In
+002C   92 0017    	CALL	Out
+002F   10 0006    	LA	C
+0032   92 0014    	CALL	In
+0035   92 0017    	CALL	Out
+0038   10 000C    	LA	D
+003B   92 0014    	CALL	In
+003E   92 0017    	CALL	Out
+0041   10 0010    	LA	E
+0044   92 0014    	CALL	In
+0047   92 0017    	CALL	Out
+                  #
+                  # Compute the expression
+                  #
+004A   10 0012    	LA	F
+004D   10 0019    	LA	G
+0050   10 001B    	LA	H
+0053   11 0000    	L	A
+0056   11 0002    	L	B
+0059   43         	OP	*
+005A   40         	NG	
+005B   11 0006    	L	C
+005E   11 000C    	L	D
+0061   44         	OP	/
+0062   41         	OP	+
+0063   11 0000    	L	A
+0066   11 0010    	L	E
+0069   45         	OP	%
+006A   42         	OP	-
+006B   13         	STAL
+006C   13         	STAL
+006D   12         	ST	
+                  #
+                  # Print final result
+                  #
+006E   11 0012    	L	F
+0071   92 0017    	CALL	Out
+0074   00         	HALT
+                  #
+0075              	END	Run

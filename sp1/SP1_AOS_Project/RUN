@@ -1,0 +1,11 @@
+#!/bin/sh
+
+n=1
+while [ -f aos.$n ]
+do
+	echo "./project2 aos.$n < /dev/null > out.$n 2> err.$n"
+	./project2 aos.$n < /dev/null > out.$n 2> err.$n
+	diff stdout.$n out.$n
+	diff stderr.$n err.$n
+	n=`expr $n + 1`
+done

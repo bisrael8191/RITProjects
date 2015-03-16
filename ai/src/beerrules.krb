@@ -1,0 +1,199 @@
+#beerrules - Rules for the inference engine
+#Author - Brad Israel (bdi8241@cs.rit.edu)
+
+#Forward chaining rules that define how to choose
+# a beer. All facts are entered generically and then
+# linked together, which makes it very easy to setup
+# new inputs and beers. To prioritize the final selection
+# it is based on first entered, then longest rule.
+
+#In this syntax foreach is 'if' and assert is 'then'.
+
+#Enter all user choices as facts.
+choice
+	foreach
+		beer.choice($user, $opt, $val, $nextOpt)
+	assert
+		beer.chain($user, $opt, $nextOpt)
+
+#Choice ordering to complete the proof properly.
+order
+	foreach
+		beer.chain($user, $opt1, $opt2)
+		beer.choice($user, $opt1, $val1, $_)
+		beer.choice($user, $opt2, $val2, $_)
+		check $opt1 != $opt2
+	assert
+		beer.proof($user, $val1, $val2, $opt1, $opt2)
+
+#Define the last step rules, which match the choices in the 
+# proof to the correct beer type. If one of these match,
+# then the rule asserts a new rule which finished the proof.
+recommend_pale
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'light'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'bitter'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'refreshing'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'high'
+	assert
+		beer.proof($user, $val4, 'pale ale', $abv, recommendation)
+		
+recommend_pilsner
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'light'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'bitter'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'refreshing'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'low'
+	assert
+		beer.proof($user, $val4, 'pilsner', $abv, recommendation)
+
+recommend_ipa
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'light'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'bitter'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'hoppy'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'high'
+	assert
+		beer.proof($user, $val4, 'ipa', $abv, recommendation)
+		
+recommend_hefe
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'light'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'sweet'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'refreshing'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'high'
+	assert
+		beer.proof($user, $val4, 'hefewiezen', $abv, recommendation)
+		
+recommend_amberale
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'light'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'sweet'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'refreshing'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'high'
+	assert
+		beer.proof($user, $val4, 'amber ale', $abv, recommendation)
+		
+recommend_light
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'light'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'sweet'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'refreshing'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'low'
+	assert
+		beer.proof($user, $val4, 'light beer', $abv, recommendation)
+		
+recommend_lager
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'light'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'sweet'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'hoppy'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'high'
+	assert
+		beer.proof($user, $val4, 'lager', $abv, recommendation)
+		
+recommend_bock
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'dark'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'bitter'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'refreshing'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'high'
+	assert
+		beer.proof($user, $val4, 'bock', $abv, recommendation)
+		
+recommend_oktober
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'dark'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'bitter'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'refreshing'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'low'
+	assert
+		beer.proof($user, $val4, 'oktoberfest', $abv, recommendation)
+		
+recommend_black
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'dark'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'bitter'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'hoppy'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'high'
+	assert
+		beer.proof($user, $val4, 'black lager', $abv, recommendation)
+		
+recommend_brown
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'dark'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'sweet'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'refreshing'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'high'
+	assert
+		beer.proof($user, $val4, 'brown lager', $abv, recommendation)
+		
+recommend_porter
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'dark'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'sweet'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'refreshing'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'low'
+	assert
+		beer.proof($user, $val4, 'porter', $abv, recommendation)
+		
+recommend_stout
+	foreach
+		beer.choice($user, $ltdk, $val1, $bs)
+		check $val1 == 'dark'
+		beer.choice($user, $bs, $val2, $rh)
+		check $val2 == 'sweet'
+		beer.choice($user, $rh, $val3, $abv)
+		check $val3 == 'hoppy'
+		beer.choice($user, $abv, $val4, $_)
+		check $val4 == 'high'
+	assert
+		beer.proof($user, $val4, 'stout', $abv, recommendation)

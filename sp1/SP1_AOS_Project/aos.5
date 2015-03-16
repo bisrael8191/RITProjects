@@ -1,0 +1,83 @@
+#
+# A sample AOS program that reads in values for
+# variables a, b, c, d, and e, echo prints these
+# values, and then implements the multiple
+# assignment statement
+#
+#	F = G = H = -(A*B) + (C/D) - (A%E)
+#
+# Data areas
+#
+A	BSS	1
+B	BSS	2
+C	BSS	3
+D	BSS	2
+E	BSS	1
+F	BSS	1
+#
+# Subroutines
+#
+# Read a number and store it at the
+# address found on the stack
+#
+In	READ	Get the number
+	STAL	Save it, but leave a copy on the stack
+	RET
+#
+# Print the number found on top of the stack
+#
+Out	PRT
+	RET
+#
+# More data areas
+#
+G	BSS	1
+H	BSS	1
+#
+# Input initial values
+#
+Run	LA	A	Put addr of first var onto stack
+	CALL	In	Read and save
+	CALL	Out	Print, removing from stack
+#
+	LA	B	Ditto for the other six numbers
+	CALL	In
+	CALL	Out
+	LA	C
+	CALL	In
+	CALL	Out
+	LA	D
+	CALL	In
+	CALL	Out
+	LA	E
+	CALL	In
+	CALL	Out
+#
+# Compute the expression
+#
+	LA	F
+	LA	G
+	LA	H
+	L	A
+	L	B
+	OP	*
+	NG	
+	L	C
+	L	D
+	OP	/
+	OP	+
+	L	A
+	L	E
+	OP	%
+	OP	-
+	STAL
+	STAL
+	ST	
+#
+# Print final result
+#
+	L	F
+	CALL	Out
+	HALT
+#
+	END	Run

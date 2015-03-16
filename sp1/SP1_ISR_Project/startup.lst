@@ -1,0 +1,192 @@
+GAS LISTING startup.s 			page 1
+
+
+   1              	        .globl begtext
+   2              	
+   3              	        .text
+   4              	begtext:
+   5              	
+   6              	
+   7              	
+   8              	
+   9              	        .globl _start
+  10              	
+  11              	_start:
+  12 0000 B000     	        movb $0x00, %al
+  13 0002 E670     	        outb $0x70
+  14              	
+  15              	
+  16              	
+  17              	
+  18              	
+  19 0004 31C0     	        xorl %eax, %eax
+  20 0006 66B81800 	        movw $0x18, %ax
+  21 000a 8ED8     	        movw %ax, %ds
+  22 000c 8EC0     	        movw %ax, %es
+  23 000e 8EE0     	        movw %ax, %fs
+  24 0010 8EE8     	        movw %ax, %gs
+  25              	
+  26 0012 66B82000 	        movw $0x20, %ax
+  27 0016 8ED0     	        movw %ax, %ss
+  28              	
+  29 0018 BD000001 	        movl $0x00010000, %ebp
+  29      00
+  30 001d 89EC     	        movl %ebp, %esp
+  31              	        .globl __bss_start,_end
+  32              	
+  33 001f BF000000 	        movl $__bss_start,%edi
+  33      00
+  34              	clearbss:
+  35 0024 C7070000 	        movl $0,(%edi)
+  35      0000
+  36 002a 83C704   	        addl $4,%edi
+  37 002d 81FF0000 	        cmpl $_end,%edi
+  37      0000
+  38 0033 72EF     	        jb clearbss
+  39              	
+  40              	
+  41              	
+  42              	
+  43              	
+  44              	
+  45 0035 E8FCFFFF 	        call __init_interrupts
+  45      FF
+  46 003a E8FCFFFF 	        call c_io_init
+  46      FF
+  47 003f E8FCFFFF 	        call main
+  47      FF
+  48              	
+  49              	
+  50              	
+GAS LISTING startup.s 			page 2
+
+
+  51              	
+  52 0044 FA       	        cli
+  53 0045 685F0000 	        pushl $message
+  53      00
+  54 004a 6A18     	        pushl $24
+  55 004c B8500000 	        movl $80,%eax
+  55      00
+  56 0051 2D290000 	        subl $messagelen,%eax
+  56      00
+  57 0056 50       	        pushl %eax
+  58 0057 E8FCFFFF 	        call c_puts_at
+  58      FF
+  59 005c F4       	die: hlt
+  60 005d EBFD     	        jmp die
+  61              	
+  62 005f 20202020 	message: .string "     ***** Returned from main! *****     "
+  62      202A2A2A 
+  62      2A2A2052 
+  62      65747572 
+  62      6E656420 
+  63              	messagelen = . - message - 1
+  64              	
+  65              	
+  66              	
+  67              	
+  68              	
+  69              	
+  70              	ARG1 = 8
+  71              	ARG2 = 12
+  72              	        .globl __inb, __inw, __inl
+  73              	
+  74              	__inb:
+  75 0089 C8000000 	        enter $0,$0
+  76 008d 31C0     	        xorl %eax,%eax
+  77 008f 8B5508   	        movl ARG1(%ebp),%edx
+  78 0092 EC       	        inb (%dx)
+  79 0093 C9       	        leave
+  80 0094 C3       	        ret
+  81              	__inw:
+  82 0095 C8000000 	        enter $0,$0
+  83 0099 31C0     	        xorl %eax,%eax
+  84 009b 8B5508   	        movl ARG1(%ebp),%edx
+  85 009e 66ED     	        inw (%dx)
+  86 00a0 C9       	        leave
+  87 00a1 C3       	        ret
+  88              	__inl:
+  89 00a2 C8000000 	        enter $0,$0
+  90 00a6 31C0     	        xorl %eax,%eax
+  91 00a8 8B5508   	        movl ARG1(%ebp),%edx
+  92 00ab ED       	        inl (%dx)
+  93 00ac C9       	        leave
+  94 00ad C3       	        ret
+  95              	        .globl __outb, __outw, __outl
+  96              	__outb:
+  97 00ae C8000000 	        enter $0,$0
+  98 00b2 8B5508   	        movl ARG1(%ebp),%edx
+  99 00b5 8B450C   	        movl ARG2(%ebp),%eax
+GAS LISTING startup.s 			page 3
+
+
+ 100 00b8 EE       	        outb (%dx)
+ 101 00b9 C9       	        leave
+ 102 00ba C3       	        ret
+ 103              	__outw:
+ 104 00bb C8000000 	        enter $0,$0
+ 105 00bf 8B5508   	        movl ARG1(%ebp),%edx
+ 106 00c2 8B450C   	        movl ARG2(%ebp),%eax
+ 107 00c5 66EF     	        outw (%dx)
+ 108 00c7 C9       	        leave
+ 109 00c8 C3       	        ret
+ 110              	__outl:
+ 111 00c9 C8000000 	        enter $0,$0
+ 112 00cd 8B5508   	        movl ARG1(%ebp),%edx
+ 113 00d0 8B450C   	        movl ARG2(%ebp),%eax
+ 114 00d3 EF       	        outl (%dx)
+ 115 00d4 C9       	        leave
+ 116 00d5 C3       	        ret
+ 117              	
+ 118              	
+ 119              	
+ 120              	
+ 121              	
+ 122              	        .globl __get_flags
+ 123              	
+ 124              	__get_flags:
+ 125 00d6 9C       	        pushfl
+ 126 00d7 58       	        popl %eax
+ 127 00d8 C3       	        ret
+ 128              	
+ 129              	
+ 130              	
+ 131              	
+ 132              	
+ 133              	        .globl __pause
+ 134              	
+ 135              	__pause:
+ 136 00d9 C8000000 	        enter $0,$0
+ 137 00dd FB       	        sti
+ 138 00de F4       	        hlt
+ 139 00df C9       	        leave
+ 140 00e0 C3       	        ret
+GAS LISTING startup.s 			page 4
+
+
+DEFINED SYMBOLS
+           startup.s:4      .text:0000000000000000 begtext
+           startup.s:11     .text:0000000000000000 _start
+           startup.s:34     .text:0000000000000024 clearbss
+           startup.s:62     .text:000000000000005f message
+                            *ABS*:0000000000000029 messagelen
+           startup.s:59     .text:000000000000005c die
+           startup.s:70     *ABS*:0000000000000008 ARG1
+           startup.s:71     *ABS*:000000000000000c ARG2
+           startup.s:74     .text:0000000000000089 __inb
+           startup.s:81     .text:0000000000000095 __inw
+           startup.s:88     .text:00000000000000a2 __inl
+           startup.s:96     .text:00000000000000ae __outb
+           startup.s:103    .text:00000000000000bb __outw
+           startup.s:110    .text:00000000000000c9 __outl
+           startup.s:124    .text:00000000000000d6 __get_flags
+           startup.s:135    .text:00000000000000d9 __pause
+
+UNDEFINED SYMBOLS
+__bss_start
+_end
+__init_interrupts
+c_io_init
+main
+c_puts_at

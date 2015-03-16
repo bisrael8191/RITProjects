@@ -1,0 +1,492 @@
+GAS LISTING bootstrap.s 			page 1
+
+
+   1              	        .code16
+   2              	BOOT_SEGMENT = 0x07C0
+   3              	BOOT_ADDRESS = 0x00007C00
+   4              	START_SEGMENT = 0x0000
+   5              	START_OFFSET = 0x00007E00
+   6              	
+   7              	
+   8              	
+   9              	
+  10              	        .globl begtext
+  11              	
+  12              	        .text
+  13              	begtext:
+  14              	
+  15              	
+  16              	
+  17              	
+  18 0000 B8C007   	        movw $BOOT_SEGMENT, %ax
+  19 0003 8ED8     	        movw %ax, %ds
+  20 0005 8ED0     	        movw %ax, %ss
+  21 0007 B80040   	        movw $0x4000, %ax
+  22 000a 89C4     	        movw %ax, %sp
+  23              	
+  24              	
+  25              	
+  26              	
+  27 000c B401     	        movb $0x01, %ah
+  28 000e B200     	        movb $0, %dl
+  29 0010 CD13     	        int $0x13
+  30 0012 7308     	        jnc diskok
+  31              	
+  32 0014 BE1801   	        movw $err_diskstatus, %si
+  33 0017 E8BD00   	        call dispMsg
+  34 001a EBFE     	        jmp .
+  35              	
+  36              	diskok:
+  37 001c B80000   	        movw $0,%ax
+  38 001f B200     	        movb $0,%dl
+  39 0021 CD13     	        int $0X13
+  40              	
+  41              	
+  42              	
+  43              	
+  44              	
+  45              	
+  46 0023 BE0601   	        movw $msg_loading,%si
+  47 0026 E8AE00   	        call dispMsg
+  48              	
+  49 0029 B80100   	        movw $1,%ax
+  50 002c BB0000   	        movw $START_SEGMENT,%bx
+  51 002f 8EC3     	        movw %bx,%es
+  52 0031 BB007E   	        movw $START_OFFSET,%bx
+  53 0034 E82100   	        call readprog
+  54              	
+  55              	
+  56              	
+  57              	
+GAS LISTING bootstrap.s 			page 2
+
+
+  58              	
+  59              	
+  60 0037 BFFE03   	        movw $firstcount,%di
+  61              	
+  62              	nextblock:
+  63 003a 8B05     	        movw (%di),%ax
+  64 003c 85C0     	        testw %ax,%ax
+  65 003e 0F848C00 	        jz done_loading
+  66              	
+  67 0042 83EF02   	        subw $2,%di
+  68 0045 8B1D     	        movw (%di),%bx
+  69 0047 8EC3     	        movw %bx,%es
+  70 0049 83EF02   	        subw $2,%di
+  71 004c 8B1D     	        movw (%di),%bx
+  72 004e 83EF02   	        subw $2,%di
+  73 0051 57       	        pushw %di
+  74 0052 E80300   	        call readprog
+  75 0055 5F       	        popw %di
+  76 0056 EBE2     	        jmp nextblock
+  77              	
+  78              	
+  79              	
+  80              	
+  81              	
+  82              	
+  83              	
+  84              	readprog:
+  85 0058 50       	        pushw %ax
+  86              	
+  87 0059 B90300   	        movw $3,%cx
+  88              	retry:
+  89 005c 51       	        pushw %cx
+  90              	
+  91 005d 8B0E0201 	        movw sec,%cx
+  92 0061 8B160401 	        movw head,%dx
+  93              	
+  94 0065 B80102   	        movw $0x0201,%ax
+  95 0068 CD13     	        int $0x13
+  96 006a 7311     	        jnc readcont
+  97              	
+  98 006c BE2A01   	        movw $err_diskread,%si
+  99 006f E86500   	        call dispMsg
+ 100 0072 59       	        popw %cx
+ 101 0073 E2E7     	        loop retry
+ 102 0075 BE4201   	        movw $err_diskfail,%si
+ 103 0078 E85C00   	        call dispMsg
+ 104 007b EBFE     	        jmp .
+ 105              	
+ 106              	readcont:
+ 107 007d BE0E01   	        movw $msg_dot,%si
+ 108 0080 E85400   	        call dispMsg
+ 109 0083 81FB00FE 	        cmpw $65536-512,%bx
+ 110 0087 7406     	        je adjust
+ 111 0089 81C30002 	        addw $512,%bx
+ 112 008d EB0A     	        jmp readcont2
+ 113              	
+ 114              	adjust:
+GAS LISTING bootstrap.s 			page 3
+
+
+ 115 008f BB0000   	        movw $0, %bx
+ 116 0092 8CC0     	        movw %es, %ax
+ 117 0094 050010   	        addw $0x1000,%ax
+ 118 0097 8EC0     	        movw %ax, %es
+ 119              	
+ 120              	readcont2:
+ 121 0099 FEC1     	        incb %cl
+ 122 009b 80F913   	        cmpb $19, %cl
+ 123 009e 751A     	        jnz save_sector
+ 124              	
+ 125 00a0 B101     	        movb $1, %cl
+ 126 00a2 FEC6     	        incb %dh
+ 127 00a4 80FE02   	        cmpb $2, %dh
+ 128 00a7 7511     	        jnz save_sector
+ 129              	
+ 130 00a9 30F6     	        xorb %dh, %dh
+ 131 00ab FEC5     	        incb %ch
+ 132 00ad 80FD50   	        cmpb $80, %ch
+ 133 00b0 7508     	        jnz save_sector
+ 134              	
+ 135 00b2 BE3801   	        movw $err_toobig, %si
+ 136 00b5 E81F00   	        call dispMsg
+ 137 00b8 EBFE     	        jmp .
+ 138              	
+ 139              	save_sector:
+ 140 00ba 890E0201 	        movw %cx,sec
+ 141 00be 89160401 	        movw %dx,head
+ 142              	
+ 143 00c2 58       	        popw %ax
+ 144 00c3 58       	        popw %ax
+ 145 00c4 48       	        decw %ax
+ 146 00c5 7F91     	        jg readprog
+ 147              	
+ 148              	readdone:
+ 149 00c7 BE1601   	        movw $msg_bar,%si
+ 150 00ca E80A00   	        call dispMsg
+ 151 00cd C3       	        ret
+ 152              	
+ 153              	
+ 154              	
+ 155              	
+ 156              	
+ 157              	done_loading:
+ 158 00ce BE1001   	        movw $msg_go, %si
+ 159 00d1 E80300   	        call dispMsg
+ 160              	
+ 161 00d4 E92901   	        jmp switch
+ 162              	
+ 163              	
+ 164              	
+ 165              	
+ 166              	dispMsg:
+ 167 00d7 50       	        pushw %ax
+ 168 00d8 53       	        pushw %bx
+ 169              	repeat:
+ 170 00d9 AC       	        lodsb
+ 171              	
+GAS LISTING bootstrap.s 			page 4
+
+
+ 172 00da B40E     	        movb $0x0e, %ah
+ 173 00dc BB0700   	        movw $0x07, %bx
+ 174 00df 08C0     	        orb %al, %al
+ 175 00e1 7404     	        jz getOut
+ 176              	
+ 177 00e3 CD10     	        int $0x10
+ 178 00e5 EBF2     	        jmp repeat
+ 179              	
+ 180              	getOut:
+ 181 00e7 5B       	        popw %bx
+ 182 00e8 58       	        popw %ax
+ 183 00e9 C3       	        ret
+ 184              	move_gdt:
+ 185 00ea 8CCE     	        movw %cs, %si
+ 186 00ec 8EDE     	        movw %si, %ds
+ 187 00ee BE527D   	        movw $start_gdt + BOOT_ADDRESS, %si
+ 188 00f1 BF4000   	        movw $0x00000040, %di
+ 189 00f4 8EC7     	        movw %di, %es
+ 190 00f6 31FF     	        xorw %di, %di
+ 191 00f8 66B92800 	        movl $gdt_len, %ecx
+ 191      0000
+ 192 00fe FC       	        cld
+ 193 00ff F3A4     	        rep movsb
+ 194 0101 C3       	        ret
+ 195              	
+ 196              	
+ 197              	
+ 198              	
+ 199              	
+ 200              	
+ 201              	
+ 202 0102 0200     	sec: .word 2
+ 203 0104 0000     	head: .word 0
+ 204              	
+ 205              	
+ 206              	
+ 207              	
+ 208              	msg_loading:
+ 209 0106 4C6F6164 	        .asciz "Loading"
+ 209      696E6700 
+ 210              	msg_dot:
+ 211 010e 2E00     	        .asciz "."
+ 212              	msg_go:
+ 213 0110 646F6E65 	        .asciz "done."
+ 213      2E00
+ 214              	msg_bar:
+ 215 0116 7C00     	        .asciz "|"
+ 216              	
+ 217              	
+ 218              	
+ 219              	
+ 220              	err_diskstatus:
+ 221 0118 4469736B 	        .asciz "Disk not ready.\n\r"
+ 221      206E6F74 
+ 221      20726561 
+ 221      64792E0A 
+ 221      0D00
+GAS LISTING bootstrap.s 			page 5
+
+
+ 222              	err_diskread:
+ 223 012a 52656164 	        .asciz "Read failed\n\r"
+ 223      20666169 
+ 223      6C65640A 
+ 223      0D00
+ 224              	err_toobig:
+ 225 0138 546F6F20 	        .asciz "Too big\n\r"
+ 225      6269670A 
+ 225      0D00
+ 226              	err_diskfail:
+ 227 0142 43616E27 	        .asciz "Can't proceed\n\r"
+ 227      74207072 
+ 227      6F636565 
+ 227      640A0D00 
+ 228              	start_gdt:
+ 229 0152 00000000 	        .word 0,0,0,0
+ 229      00000000 
+ 230              	
+ 231              	linear_seg:
+ 232 015a FFFF     	        .word 0xFFFF
+ 233 015c 0000     	        .word 0x0000
+ 234 015e 00       	        .byte 0x00
+ 235 015f 92       	        .byte 0x92
+ 236 0160 CF       	        .byte 0xCF
+ 237 0161 00       	        .byte 0x00
+ 238              	
+ 239              	code_seg:
+ 240 0162 FFFF     	        .word 0xFFFF
+ 241 0164 0000     	        .word 0x0000
+ 242 0166 00       	        .byte 0x00
+ 243 0167 9A       	        .byte 0x9A
+ 244 0168 CF       	        .byte 0xCF
+ 245 0169 00       	        .byte 0x00
+ 246              	
+ 247              	data_seg:
+ 248 016a FFFF     	        .word 0xFFFF
+ 249 016c 0000     	        .word 0x0000
+ 250 016e 00       	        .byte 0x00
+ 251 016f 92       	        .byte 0x92
+ 252 0170 CF       	        .byte 0xCF
+ 253 0171 00       	        .byte 0x00
+ 254              	
+ 255              	stack_seg:
+ 256 0172 FFFF     	        .word 0xFFFF
+ 257 0174 0000     	        .word 0x0000
+ 258 0176 00       	        .byte 0x00
+ 259 0177 92       	        .byte 0x92
+ 260 0178 CF       	        .byte 0xCF
+ 261 0179 00       	        .byte 0x00
+ 262              	
+ 263              	end_gdt:
+ 264              	gdt_len = end_gdt - start_gdt
+ 265              	
+ 266              	
+ 267              	
+ 268              	
+ 269              	gdt_48:
+GAS LISTING bootstrap.s 			page 6
+
+
+ 270 017a 0020     	        .word 0x2000
+ 271 017c 00040000 	        .quad 0x00000400
+ 271      00000000 
+ 272              	
+ 273              	idt_48:
+ 274 0184 0008     	        .word 0x0800
+ 275 0186 00240000 	        .quad 0x00002400
+ 275      00000000 
+ 276              	
+ 277              	
+ 278              	
+ 279              	
+ 280              	
+ 281 018e 00000000 	        .org 510
+ 281      00000000 
+ 281      00000000 
+ 281      00000000 
+ 281      00000000 
+ 282              	
+ 283              	boot_sig:
+ 284 01fe 55AA     	        .word 0xAA55
+ 285              	switch:
+ 286 0200 FA       	        cli
+ 287 0201 B080     	        movb $0x80, %al
+ 288 0203 E670     	        outb %al, $0x70
+ 289              	
+ 290 0205 E82200   	        call floppy_off
+ 291 0208 E82800   	        call enable_A20
+ 292 020b E8DCFE   	        call move_gdt
+ 293              	
+ 294              	
+ 295              	
+ 296              	
+ 297              	
+ 298              	
+ 299 020e 0F011E84 	        lidt idt_48 + BOOT_ADDRESS
+ 299      7D
+ 300 0213 0F01167A 	        lgdt gdt_48 + BOOT_ADDRESS
+ 300      7D
+ 301              	
+ 302 0218 0F20C0   	        movl %cr0, %eax
+ 303 021b 6683C801 	        orl $1, %eax
+ 304 021f 0F22C0   	        movl %eax, %cr0
+ 305              	
+ 306              	
+ 307              	
+ 308              	
+ 309              	
+ 310              	
+ 311 0222 66EA     	        .byte 0x66, 0xEA
+ 312 0224 00000100 	        .long 0x00010000
+ 313 0228 1000     	        .word 0x0010
+ 314              	
+ 315              	
+ 316              	
+ 317              	
+ 318              	
+GAS LISTING bootstrap.s 			page 7
+
+
+ 319              	
+ 320              	floppy_off:
+ 321 022a 52       	        push %dx
+ 322 022b BAF203   	        movw $0x3f2, %dx
+ 323 022e 30C0     	        xorb %al, %al
+ 324 0230 EE       	        outb %al, %dx
+ 325 0231 5A       	        pop %dx
+ 326 0232 C3       	        ret
+ 327              	
+ 328              	
+ 329              	
+ 330              	
+ 331              	enable_A20:
+ 332 0233 E82D00   	        call a20wait
+ 333 0236 B0AD     	        movb $0xad, %al
+ 334 0238 E664     	        outb %al, $0x64
+ 335              	
+ 336 023a E82600   	        call a20wait
+ 337 023d B0D0     	        movb $0xd0, %al
+ 338 023f E664     	        outb %al, $0x64
+ 339              	
+ 340 0241 E83000   	        call a20wait2
+ 341 0244 E460     	        inb $0x60, %al
+ 342 0246 6650     	        pushl %eax
+ 343              	
+ 344 0248 E81800   	        call a20wait
+ 345 024b B0D1     	        movb $0xd1, %al
+ 346 024d E664     	        outb %al, $0x64
+ 347              	
+ 348 024f E81100   	        call a20wait
+ 349 0252 6658     	        popl %eax
+ 350 0254 0C02     	        orb $2, %al
+ 351 0256 E660     	        outb %al, $0x60
+ 352              	
+ 353 0258 E80800   	        call a20wait
+ 354 025b B0AE     	        mov $0xae, %al
+ 355 025d E664     	        out %al, $0x64
+ 356              	
+ 357 025f E80100   	        call a20wait
+ 358 0262 C3       	        ret
+ 359              	
+ 360              	a20wait:
+ 361 0263 66B90000 	        movl $65536, %ecx
+ 361      0100
+ 362              	wait_loop:
+ 363 0269 E464     	        inb $0x64, %al
+ 364 026b A802     	        test $2, %al
+ 365 026d 7404     	        jz wait_exit
+ 366 026f E2F8     	        loop wait_loop
+ 367 0271 EBF0     	        jmp a20wait
+ 368              	wait_exit:
+ 369 0273 C3       	        ret
+ 370              	
+ 371              	a20wait2:
+ 372 0274 66B90000 	        mov $65536, %ecx
+ 372      0100
+ 373              	wait2_loop:
+GAS LISTING bootstrap.s 			page 8
+
+
+ 374 027a E464     	        in $0x64, %al
+ 375 027c A801     	        test $1, %al
+ 376 027e 7504     	        jnz wait2_exit
+ 377 0280 E2F8     	        loop wait2_loop
+ 378 0282 EBF0     	        jmp a20wait2
+ 379              	wait2_exit:
+ 380 0284 C3       	        ret
+ 381 0285 00000000 	        .org 1024-2
+ 381      00000000 
+ 381      00000000 
+ 381      00000000 
+ 381      00000000 
+ 382              	firstcount:
+ 383 03fe 0000     	        .word 0
+GAS LISTING bootstrap.s 			page 9
+
+
+DEFINED SYMBOLS
+         bootstrap.s:2      *ABS*:00000000000007c0 BOOT_SEGMENT
+         bootstrap.s:3      *ABS*:0000000000007c00 BOOT_ADDRESS
+         bootstrap.s:4      *ABS*:0000000000000000 START_SEGMENT
+         bootstrap.s:5      *ABS*:0000000000007e00 START_OFFSET
+         bootstrap.s:13     .text:0000000000000000 begtext
+         bootstrap.s:36     .text:000000000000001c diskok
+         bootstrap.s:220    .text:0000000000000118 err_diskstatus
+         bootstrap.s:166    .text:00000000000000d7 dispMsg
+         bootstrap.s:208    .text:0000000000000106 msg_loading
+         bootstrap.s:84     .text:0000000000000058 readprog
+         bootstrap.s:382    .text:00000000000003fe firstcount
+         bootstrap.s:62     .text:000000000000003a nextblock
+         bootstrap.s:157    .text:00000000000000ce done_loading
+         bootstrap.s:88     .text:000000000000005c retry
+         bootstrap.s:202    .text:0000000000000102 sec
+         bootstrap.s:203    .text:0000000000000104 head
+         bootstrap.s:106    .text:000000000000007d readcont
+         bootstrap.s:222    .text:000000000000012a err_diskread
+         bootstrap.s:226    .text:0000000000000142 err_diskfail
+         bootstrap.s:210    .text:000000000000010e msg_dot
+         bootstrap.s:114    .text:000000000000008f adjust
+         bootstrap.s:120    .text:0000000000000099 readcont2
+         bootstrap.s:139    .text:00000000000000ba save_sector
+         bootstrap.s:224    .text:0000000000000138 err_toobig
+         bootstrap.s:148    .text:00000000000000c7 readdone
+         bootstrap.s:214    .text:0000000000000116 msg_bar
+         bootstrap.s:212    .text:0000000000000110 msg_go
+         bootstrap.s:285    .text:0000000000000200 switch
+         bootstrap.s:169    .text:00000000000000d9 repeat
+         bootstrap.s:180    .text:00000000000000e7 getOut
+         bootstrap.s:184    .text:00000000000000ea move_gdt
+         bootstrap.s:228    .text:0000000000000152 start_gdt
+                            *ABS*:0000000000000028 gdt_len
+         bootstrap.s:231    .text:000000000000015a linear_seg
+         bootstrap.s:239    .text:0000000000000162 code_seg
+         bootstrap.s:247    .text:000000000000016a data_seg
+         bootstrap.s:255    .text:0000000000000172 stack_seg
+         bootstrap.s:263    .text:000000000000017a end_gdt
+         bootstrap.s:269    .text:000000000000017a gdt_48
+         bootstrap.s:273    .text:0000000000000184 idt_48
+         bootstrap.s:283    .text:00000000000001fe boot_sig
+         bootstrap.s:320    .text:000000000000022a floppy_off
+         bootstrap.s:331    .text:0000000000000233 enable_A20
+         bootstrap.s:360    .text:0000000000000263 a20wait
+         bootstrap.s:371    .text:0000000000000274 a20wait2
+         bootstrap.s:362    .text:0000000000000269 wait_loop
+         bootstrap.s:368    .text:0000000000000273 wait_exit
+         bootstrap.s:373    .text:000000000000027a wait2_loop
+         bootstrap.s:379    .text:0000000000000284 wait2_exit
+
+NO UNDEFINED SYMBOLS

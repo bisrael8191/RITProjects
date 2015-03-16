@@ -1,0 +1,933 @@
+GAS LISTING isr_stubs.s 			page 1
+
+
+   1              	        .text
+   2              	        .globl __isr_table
+   3              	        .globl __isr_restore
+   4              	isr_save:
+   5 0000 60       	        pusha
+   6 0001 1E       	        pushl %ds
+   7 0002 06       	        pushl %es
+   8 0003 0FA0     	        pushl %fs
+   9 0005 0FA8     	        pushl %gs
+  10 0007 16       	        pushl %ss
+  11 0008 8B442434 	        movl 52(%esp),%eax
+  12 000c 8B5C2438 	        movl 56(%esp),%ebx
+  13 0010 53       	        pushl %ebx
+  14 0011 50       	        pushl %eax
+  15              	
+  16              	
+  17              	
+  18              	
+  19 0012 8B1C8500 	        movl __isr_table(,%eax,4),%ebx
+  19      000000
+  20 0019 FFD3     	        call *%ebx
+  21 001b 83C408   	        addl $8,%esp
+  22              	
+  23              	
+  24              	
+  25              	
+  26              	
+  27              	__isr_restore:
+  28 001e 17       	        popl %ss
+  29 001f 0FA9     	        popl %gs
+  30 0021 0FA1     	        popl %fs
+  31 0023 07       	        popl %es
+  32 0024 1F       	        popl %ds
+  33 0025 61       	        popa
+  34 0026 83C408   	        addl $8, %esp
+  35 0029 CF       	        iret
+  36 002a 6A006A00 	.globl __isr_0x00 ; __isr_0x00: ; pushl $0 ; pushl $0x00 ; jmp isr_save; .globl __isr_0x01 ; __isr_
+  36      EBD06A00 
+  36      6A01EBCA 
+  36      6A006A02 
+  36      EBC46A00 
+  37 0042 6A006A04 	.globl __isr_0x04 ; __isr_0x04: ; pushl $0 ; pushl $0x04 ; jmp isr_save; .globl __isr_0x05 ; __isr_
+  37      EBB86A00 
+  37      6A05EBB2 
+  37      6A006A06 
+  37      EBAC6A00 
+  38 005a 6A08EBA2 	.globl __isr_0x08 ; __isr_0x08: ; pushl $0x08 ; jmp isr_save; .globl __isr_0x09 ; __isr_0x09: ; pus
+  38      6A006A09 
+  38      EB9C6A0A 
+  38      EB986A0B 
+  38      EB94
+  39 006c 6A0CEB90 	.globl __isr_0x0c ; __isr_0x0c: ; pushl $0x0c ; jmp isr_save; .globl __isr_0x0d ; __isr_0x0d: ; pus
+  39      6A0DEB8C 
+  39      6A0EEB88 
+  39      6A006A0F 
+  39      EB82
+  40 007e 6A006A10 	.globl __isr_0x10 ; __isr_0x10: ; pushl $0 ; pushl $0x10 ; jmp isr_save; .globl __isr_0x11 ; __isr_
+GAS LISTING isr_stubs.s 			page 2
+
+
+  40      E979FFFF 
+  40      FF6A11E9 
+  40      72FFFFFF 
+  40      6A006A12 
+  41 00a0 6A006A14 	.globl __isr_0x14 ; __isr_0x14: ; pushl $0 ; pushl $0x14 ; jmp isr_save; .globl __isr_0x15 ; __isr_
+  41      E957FFFF 
+  41      FF6A006A 
+  41      15E94EFF 
+  41      FFFF6A00 
+  42 00c4 6A006A18 	.globl __isr_0x18 ; __isr_0x18: ; pushl $0 ; pushl $0x18 ; jmp isr_save; .globl __isr_0x19 ; __isr_
+  42      E933FFFF 
+  42      FF6A006A 
+  42      19E92AFF 
+  42      FFFF6A00 
+  43 00e8 6A006A1C 	.globl __isr_0x1c ; __isr_0x1c: ; pushl $0 ; pushl $0x1c ; jmp isr_save; .globl __isr_0x1d ; __isr_
+  43      E90FFFFF 
+  43      FF6A006A 
+  43      1DE906FF 
+  43      FFFF6A00 
+  44 010c 6A006A20 	.globl __isr_0x20 ; __isr_0x20: ; pushl $0 ; pushl $0x20 ; jmp isr_save; .globl __isr_0x21 ; __isr_
+  44      E9EBFEFF 
+  44      FF6A006A 
+  44      21E9E2FE 
+  44      FFFF6A00 
+  45 0130 6A006A24 	.globl __isr_0x24 ; __isr_0x24: ; pushl $0 ; pushl $0x24 ; jmp isr_save; .globl __isr_0x25 ; __isr_
+  45      E9C7FEFF 
+  45      FF6A006A 
+  45      25E9BEFE 
+  45      FFFF6A00 
+  46 0154 6A006A28 	.globl __isr_0x28 ; __isr_0x28: ; pushl $0 ; pushl $0x28 ; jmp isr_save; .globl __isr_0x29 ; __isr_
+  46      E9A3FEFF 
+  46      FF6A006A 
+  46      29E99AFE 
+  46      FFFF6A00 
+  47 0178 6A006A2C 	.globl __isr_0x2c ; __isr_0x2c: ; pushl $0 ; pushl $0x2c ; jmp isr_save; .globl __isr_0x2d ; __isr_
+  47      E97FFEFF 
+  47      FF6A006A 
+  47      2DE976FE 
+  47      FFFF6A00 
+  48 019c 6A006A30 	.globl __isr_0x30 ; __isr_0x30: ; pushl $0 ; pushl $0x30 ; jmp isr_save; .globl __isr_0x31 ; __isr_
+  48      E95BFEFF 
+  48      FF6A006A 
+  48      31E952FE 
+  48      FFFF6A00 
+  49 01c0 6A006A34 	.globl __isr_0x34 ; __isr_0x34: ; pushl $0 ; pushl $0x34 ; jmp isr_save; .globl __isr_0x35 ; __isr_
+  49      E937FEFF 
+  49      FF6A006A 
+  49      35E92EFE 
+  49      FFFF6A00 
+  50 01e4 6A006A38 	.globl __isr_0x38 ; __isr_0x38: ; pushl $0 ; pushl $0x38 ; jmp isr_save; .globl __isr_0x39 ; __isr_
+  50      E913FEFF 
+  50      FF6A006A 
+  50      39E90AFE 
+  50      FFFF6A00 
+  51 0208 6A006A3C 	.globl __isr_0x3c ; __isr_0x3c: ; pushl $0 ; pushl $0x3c ; jmp isr_save; .globl __isr_0x3d ; __isr_
+  51      E9EFFDFF 
+  51      FF6A006A 
+GAS LISTING isr_stubs.s 			page 3
+
+
+  51      3DE9E6FD 
+  51      FFFF6A00 
+  52 022c 6A006A40 	.globl __isr_0x40 ; __isr_0x40: ; pushl $0 ; pushl $0x40 ; jmp isr_save; .globl __isr_0x41 ; __isr_
+  52      E9CBFDFF 
+  52      FF6A006A 
+  52      41E9C2FD 
+  52      FFFF6A00 
+  53 0250 6A006A44 	.globl __isr_0x44 ; __isr_0x44: ; pushl $0 ; pushl $0x44 ; jmp isr_save; .globl __isr_0x45 ; __isr_
+  53      E9A7FDFF 
+  53      FF6A006A 
+  53      45E99EFD 
+  53      FFFF6A00 
+  54 0274 6A006A48 	.globl __isr_0x48 ; __isr_0x48: ; pushl $0 ; pushl $0x48 ; jmp isr_save; .globl __isr_0x49 ; __isr_
+  54      E983FDFF 
+  54      FF6A006A 
+  54      49E97AFD 
+  54      FFFF6A00 
+  55 0298 6A006A4C 	.globl __isr_0x4c ; __isr_0x4c: ; pushl $0 ; pushl $0x4c ; jmp isr_save; .globl __isr_0x4d ; __isr_
+  55      E95FFDFF 
+  55      FF6A006A 
+  55      4DE956FD 
+  55      FFFF6A00 
+  56 02bc 6A006A50 	.globl __isr_0x50 ; __isr_0x50: ; pushl $0 ; pushl $0x50 ; jmp isr_save; .globl __isr_0x51 ; __isr_
+  56      E93BFDFF 
+  56      FF6A006A 
+  56      51E932FD 
+  56      FFFF6A00 
+  57 02e0 6A006A54 	.globl __isr_0x54 ; __isr_0x54: ; pushl $0 ; pushl $0x54 ; jmp isr_save; .globl __isr_0x55 ; __isr_
+  57      E917FDFF 
+  57      FF6A006A 
+  57      55E90EFD 
+  57      FFFF6A00 
+  58 0304 6A006A58 	.globl __isr_0x58 ; __isr_0x58: ; pushl $0 ; pushl $0x58 ; jmp isr_save; .globl __isr_0x59 ; __isr_
+  58      E9F3FCFF 
+  58      FF6A006A 
+  58      59E9EAFC 
+  58      FFFF6A00 
+  59 0328 6A006A5C 	.globl __isr_0x5c ; __isr_0x5c: ; pushl $0 ; pushl $0x5c ; jmp isr_save; .globl __isr_0x5d ; __isr_
+  59      E9CFFCFF 
+  59      FF6A006A 
+  59      5DE9C6FC 
+  59      FFFF6A00 
+  60 034c 6A006A60 	.globl __isr_0x60 ; __isr_0x60: ; pushl $0 ; pushl $0x60 ; jmp isr_save; .globl __isr_0x61 ; __isr_
+  60      E9ABFCFF 
+  60      FF6A006A 
+  60      61E9A2FC 
+  60      FFFF6A00 
+  61 0370 6A006A64 	.globl __isr_0x64 ; __isr_0x64: ; pushl $0 ; pushl $0x64 ; jmp isr_save; .globl __isr_0x65 ; __isr_
+  61      E987FCFF 
+  61      FF6A006A 
+  61      65E97EFC 
+  61      FFFF6A00 
+  62 0394 6A006A68 	.globl __isr_0x68 ; __isr_0x68: ; pushl $0 ; pushl $0x68 ; jmp isr_save; .globl __isr_0x69 ; __isr_
+  62      E963FCFF 
+  62      FF6A006A 
+  62      69E95AFC 
+  62      FFFF6A00 
+GAS LISTING isr_stubs.s 			page 4
+
+
+  63 03b8 6A006A6C 	.globl __isr_0x6c ; __isr_0x6c: ; pushl $0 ; pushl $0x6c ; jmp isr_save; .globl __isr_0x6d ; __isr_
+  63      E93FFCFF 
+  63      FF6A006A 
+  63      6DE936FC 
+  63      FFFF6A00 
+  64 03dc 6A006A70 	.globl __isr_0x70 ; __isr_0x70: ; pushl $0 ; pushl $0x70 ; jmp isr_save; .globl __isr_0x71 ; __isr_
+  64      E91BFCFF 
+  64      FF6A006A 
+  64      71E912FC 
+  64      FFFF6A00 
+  65 0400 6A006A74 	.globl __isr_0x74 ; __isr_0x74: ; pushl $0 ; pushl $0x74 ; jmp isr_save; .globl __isr_0x75 ; __isr_
+  65      E9F7FBFF 
+  65      FF6A006A 
+  65      75E9EEFB 
+  65      FFFF6A00 
+  66 0424 6A006A78 	.globl __isr_0x78 ; __isr_0x78: ; pushl $0 ; pushl $0x78 ; jmp isr_save; .globl __isr_0x79 ; __isr_
+  66      E9D3FBFF 
+  66      FF6A006A 
+  66      79E9CAFB 
+  66      FFFF6A00 
+  67 0448 6A006A7C 	.globl __isr_0x7c ; __isr_0x7c: ; pushl $0 ; pushl $0x7c ; jmp isr_save; .globl __isr_0x7d ; __isr_
+  67      E9AFFBFF 
+  67      FF6A006A 
+  67      7DE9A6FB 
+  67      FFFF6A00 
+  68 046c 6A006880 	.globl __isr_0x80 ; __isr_0x80: ; pushl $0 ; pushl $0x80 ; jmp isr_save; .globl __isr_0x81 ; __isr_
+  68      000000E9 
+  68      88FBFFFF 
+  68      6A006881 
+  68      000000E9 
+  69 049c 6A006884 	.globl __isr_0x84 ; __isr_0x84: ; pushl $0 ; pushl $0x84 ; jmp isr_save; .globl __isr_0x85 ; __isr_
+  69      000000E9 
+  69      58FBFFFF 
+  69      6A006885 
+  69      000000E9 
+  70 04cc 6A006888 	.globl __isr_0x88 ; __isr_0x88: ; pushl $0 ; pushl $0x88 ; jmp isr_save; .globl __isr_0x89 ; __isr_
+  70      000000E9 
+  70      28FBFFFF 
+  70      6A006889 
+  70      000000E9 
+  71 04fc 6A00688C 	.globl __isr_0x8c ; __isr_0x8c: ; pushl $0 ; pushl $0x8c ; jmp isr_save; .globl __isr_0x8d ; __isr_
+  71      000000E9 
+  71      F8FAFFFF 
+  71      6A00688D 
+  71      000000E9 
+  72 052c 6A006890 	.globl __isr_0x90 ; __isr_0x90: ; pushl $0 ; pushl $0x90 ; jmp isr_save; .globl __isr_0x91 ; __isr_
+  72      000000E9 
+  72      C8FAFFFF 
+  72      6A006891 
+  72      000000E9 
+  73 055c 6A006894 	.globl __isr_0x94 ; __isr_0x94: ; pushl $0 ; pushl $0x94 ; jmp isr_save; .globl __isr_0x95 ; __isr_
+  73      000000E9 
+  73      98FAFFFF 
+  73      6A006895 
+  73      000000E9 
+  74 058c 6A006898 	.globl __isr_0x98 ; __isr_0x98: ; pushl $0 ; pushl $0x98 ; jmp isr_save; .globl __isr_0x99 ; __isr_
+  74      000000E9 
+GAS LISTING isr_stubs.s 			page 5
+
+
+  74      68FAFFFF 
+  74      6A006899 
+  74      000000E9 
+  75 05bc 6A00689C 	.globl __isr_0x9c ; __isr_0x9c: ; pushl $0 ; pushl $0x9c ; jmp isr_save; .globl __isr_0x9d ; __isr_
+  75      000000E9 
+  75      38FAFFFF 
+  75      6A00689D 
+  75      000000E9 
+  76 05ec 6A0068A0 	.globl __isr_0xa0 ; __isr_0xa0: ; pushl $0 ; pushl $0xa0 ; jmp isr_save; .globl __isr_0xa1 ; __isr_
+  76      000000E9 
+  76      08FAFFFF 
+  76      6A0068A1 
+  76      000000E9 
+  77 061c 6A0068A4 	.globl __isr_0xa4 ; __isr_0xa4: ; pushl $0 ; pushl $0xa4 ; jmp isr_save; .globl __isr_0xa5 ; __isr_
+  77      000000E9 
+  77      D8F9FFFF 
+  77      6A0068A5 
+  77      000000E9 
+  78 064c 6A0068A8 	.globl __isr_0xa8 ; __isr_0xa8: ; pushl $0 ; pushl $0xa8 ; jmp isr_save; .globl __isr_0xa9 ; __isr_
+  78      000000E9 
+  78      A8F9FFFF 
+  78      6A0068A9 
+  78      000000E9 
+  79 067c 6A0068AC 	.globl __isr_0xac ; __isr_0xac: ; pushl $0 ; pushl $0xac ; jmp isr_save; .globl __isr_0xad ; __isr_
+  79      000000E9 
+  79      78F9FFFF 
+  79      6A0068AD 
+  79      000000E9 
+  80 06ac 6A0068B0 	.globl __isr_0xb0 ; __isr_0xb0: ; pushl $0 ; pushl $0xb0 ; jmp isr_save; .globl __isr_0xb1 ; __isr_
+  80      000000E9 
+  80      48F9FFFF 
+  80      6A0068B1 
+  80      000000E9 
+  81 06dc 6A0068B4 	.globl __isr_0xb4 ; __isr_0xb4: ; pushl $0 ; pushl $0xb4 ; jmp isr_save; .globl __isr_0xb5 ; __isr_
+  81      000000E9 
+  81      18F9FFFF 
+  81      6A0068B5 
+  81      000000E9 
+  82 070c 6A0068B8 	.globl __isr_0xb8 ; __isr_0xb8: ; pushl $0 ; pushl $0xb8 ; jmp isr_save; .globl __isr_0xb9 ; __isr_
+  82      000000E9 
+  82      E8F8FFFF 
+  82      6A0068B9 
+  82      000000E9 
+  83 073c 6A0068BC 	.globl __isr_0xbc ; __isr_0xbc: ; pushl $0 ; pushl $0xbc ; jmp isr_save; .globl __isr_0xbd ; __isr_
+  83      000000E9 
+  83      B8F8FFFF 
+  83      6A0068BD 
+  83      000000E9 
+  84 076c 6A0068C0 	.globl __isr_0xc0 ; __isr_0xc0: ; pushl $0 ; pushl $0xc0 ; jmp isr_save; .globl __isr_0xc1 ; __isr_
+  84      000000E9 
+  84      88F8FFFF 
+  84      6A0068C1 
+  84      000000E9 
+  85 079c 6A0068C4 	.globl __isr_0xc4 ; __isr_0xc4: ; pushl $0 ; pushl $0xc4 ; jmp isr_save; .globl __isr_0xc5 ; __isr_
+  85      000000E9 
+  85      58F8FFFF 
+  85      6A0068C5 
+GAS LISTING isr_stubs.s 			page 6
+
+
+  85      000000E9 
+  86 07cc 6A0068C8 	.globl __isr_0xc8 ; __isr_0xc8: ; pushl $0 ; pushl $0xc8 ; jmp isr_save; .globl __isr_0xc9 ; __isr_
+  86      000000E9 
+  86      28F8FFFF 
+  86      6A0068C9 
+  86      000000E9 
+  87 07fc 6A0068CC 	.globl __isr_0xcc ; __isr_0xcc: ; pushl $0 ; pushl $0xcc ; jmp isr_save; .globl __isr_0xcd ; __isr_
+  87      000000E9 
+  87      F8F7FFFF 
+  87      6A0068CD 
+  87      000000E9 
+  88 082c 6A0068D0 	.globl __isr_0xd0 ; __isr_0xd0: ; pushl $0 ; pushl $0xd0 ; jmp isr_save; .globl __isr_0xd1 ; __isr_
+  88      000000E9 
+  88      C8F7FFFF 
+  88      6A0068D1 
+  88      000000E9 
+  89 085c 6A0068D4 	.globl __isr_0xd4 ; __isr_0xd4: ; pushl $0 ; pushl $0xd4 ; jmp isr_save; .globl __isr_0xd5 ; __isr_
+  89      000000E9 
+  89      98F7FFFF 
+  89      6A0068D5 
+  89      000000E9 
+  90 088c 6A0068D8 	.globl __isr_0xd8 ; __isr_0xd8: ; pushl $0 ; pushl $0xd8 ; jmp isr_save; .globl __isr_0xd9 ; __isr_
+  90      000000E9 
+  90      68F7FFFF 
+  90      6A0068D9 
+  90      000000E9 
+  91 08bc 6A0068DC 	.globl __isr_0xdc ; __isr_0xdc: ; pushl $0 ; pushl $0xdc ; jmp isr_save; .globl __isr_0xdd ; __isr_
+  91      000000E9 
+  91      38F7FFFF 
+  91      6A0068DD 
+  91      000000E9 
+  92 08ec 6A0068E0 	.globl __isr_0xe0 ; __isr_0xe0: ; pushl $0 ; pushl $0xe0 ; jmp isr_save; .globl __isr_0xe1 ; __isr_
+  92      000000E9 
+  92      08F7FFFF 
+  92      6A0068E1 
+  92      000000E9 
+  93 091c 6A0068E4 	.globl __isr_0xe4 ; __isr_0xe4: ; pushl $0 ; pushl $0xe4 ; jmp isr_save; .globl __isr_0xe5 ; __isr_
+  93      000000E9 
+  93      D8F6FFFF 
+  93      6A0068E5 
+  93      000000E9 
+  94 094c 6A0068E8 	.globl __isr_0xe8 ; __isr_0xe8: ; pushl $0 ; pushl $0xe8 ; jmp isr_save; .globl __isr_0xe9 ; __isr_
+  94      000000E9 
+  94      A8F6FFFF 
+  94      6A0068E9 
+  94      000000E9 
+  95 097c 6A0068EC 	.globl __isr_0xec ; __isr_0xec: ; pushl $0 ; pushl $0xec ; jmp isr_save; .globl __isr_0xed ; __isr_
+  95      000000E9 
+  95      78F6FFFF 
+  95      6A0068ED 
+  95      000000E9 
+  96 09ac 6A0068F0 	.globl __isr_0xf0 ; __isr_0xf0: ; pushl $0 ; pushl $0xf0 ; jmp isr_save; .globl __isr_0xf1 ; __isr_
+  96      000000E9 
+  96      48F6FFFF 
+  96      6A0068F1 
+  96      000000E9 
+  97 09dc 6A0068F4 	.globl __isr_0xf4 ; __isr_0xf4: ; pushl $0 ; pushl $0xf4 ; jmp isr_save; .globl __isr_0xf5 ; __isr_
+GAS LISTING isr_stubs.s 			page 7
+
+
+  97      000000E9 
+  97      18F6FFFF 
+  97      6A0068F5 
+  97      000000E9 
+  98 0a0c 6A0068F8 	.globl __isr_0xf8 ; __isr_0xf8: ; pushl $0 ; pushl $0xf8 ; jmp isr_save; .globl __isr_0xf9 ; __isr_
+  98      000000E9 
+  98      E8F5FFFF 
+  98      6A0068F9 
+  98      000000E9 
+  99 0a3c 6A0068FC 	.globl __isr_0xfc ; __isr_0xfc: ; pushl $0 ; pushl $0xfc ; jmp isr_save; .globl __isr_0xfd ; __isr_
+  99      000000E9 
+  99      B8F5FFFF 
+  99      6A0068FD 
+  99      000000E9 
+ 100              	
+ 101              	        .data
+ 102              	
+ 103              	
+ 104              	
+ 105              	
+ 106              	
+ 107              	
+ 108              	        .globl __isr_stub_table
+ 109              	__isr_stub_table:
+ 110 0000 00000000 	        .long __isr_0x00, __isr_0x01, __isr_0x02, __isr_0x03
+ 110      00000000 
+ 110      00000000 
+ 110      00000000 
+ 111 0010 00000000 	        .long __isr_0x04, __isr_0x05, __isr_0x06, __isr_0x07
+ 111      00000000 
+ 111      00000000 
+ 111      00000000 
+ 112 0020 00000000 	        .long __isr_0x08, __isr_0x09, __isr_0x0a, __isr_0x0b
+ 112      00000000 
+ 112      00000000 
+ 112      00000000 
+ 113 0030 00000000 	        .long __isr_0x0c, __isr_0x0d, __isr_0x0e, __isr_0x0f
+ 113      00000000 
+ 113      00000000 
+ 113      00000000 
+ 114 0040 00000000 	        .long __isr_0x10, __isr_0x11, __isr_0x12, __isr_0x13
+ 114      00000000 
+ 114      00000000 
+ 114      00000000 
+ 115 0050 00000000 	        .long __isr_0x14, __isr_0x15, __isr_0x16, __isr_0x17
+ 115      00000000 
+ 115      00000000 
+ 115      00000000 
+ 116 0060 00000000 	        .long __isr_0x18, __isr_0x19, __isr_0x1a, __isr_0x1b
+ 116      00000000 
+ 116      00000000 
+ 116      00000000 
+ 117 0070 00000000 	        .long __isr_0x1c, __isr_0x1d, __isr_0x1e, __isr_0x1f
+ 117      00000000 
+ 117      00000000 
+ 117      00000000 
+ 118 0080 00000000 	        .long __isr_0x20, __isr_0x21, __isr_0x22, __isr_0x23
+GAS LISTING isr_stubs.s 			page 8
+
+
+ 118      00000000 
+ 118      00000000 
+ 118      00000000 
+ 119 0090 00000000 	        .long __isr_0x24, __isr_0x25, __isr_0x26, __isr_0x27
+ 119      00000000 
+ 119      00000000 
+ 119      00000000 
+ 120 00a0 00000000 	        .long __isr_0x28, __isr_0x29, __isr_0x2a, __isr_0x2b
+ 120      00000000 
+ 120      00000000 
+ 120      00000000 
+ 121 00b0 00000000 	        .long __isr_0x2c, __isr_0x2d, __isr_0x2e, __isr_0x2f
+ 121      00000000 
+ 121      00000000 
+ 121      00000000 
+ 122 00c0 00000000 	        .long __isr_0x30, __isr_0x31, __isr_0x32, __isr_0x33
+ 122      00000000 
+ 122      00000000 
+ 122      00000000 
+ 123 00d0 00000000 	        .long __isr_0x34, __isr_0x35, __isr_0x36, __isr_0x37
+ 123      00000000 
+ 123      00000000 
+ 123      00000000 
+ 124 00e0 00000000 	        .long __isr_0x38, __isr_0x39, __isr_0x3a, __isr_0x3b
+ 124      00000000 
+ 124      00000000 
+ 124      00000000 
+ 125 00f0 00000000 	        .long __isr_0x3c, __isr_0x3d, __isr_0x3e, __isr_0x3f
+ 125      00000000 
+ 125      00000000 
+ 125      00000000 
+ 126 0100 00000000 	        .long __isr_0x40, __isr_0x41, __isr_0x42, __isr_0x43
+ 126      00000000 
+ 126      00000000 
+ 126      00000000 
+ 127 0110 00000000 	        .long __isr_0x44, __isr_0x45, __isr_0x46, __isr_0x47
+ 127      00000000 
+ 127      00000000 
+ 127      00000000 
+ 128 0120 00000000 	        .long __isr_0x48, __isr_0x49, __isr_0x4a, __isr_0x4b
+ 128      00000000 
+ 128      00000000 
+ 128      00000000 
+ 129 0130 00000000 	        .long __isr_0x4c, __isr_0x4d, __isr_0x4e, __isr_0x4f
+ 129      00000000 
+ 129      00000000 
+ 129      00000000 
+ 130 0140 00000000 	        .long __isr_0x50, __isr_0x51, __isr_0x52, __isr_0x53
+ 130      00000000 
+ 130      00000000 
+ 130      00000000 
+ 131 0150 00000000 	        .long __isr_0x54, __isr_0x55, __isr_0x56, __isr_0x57
+ 131      00000000 
+ 131      00000000 
+ 131      00000000 
+ 132 0160 00000000 	        .long __isr_0x58, __isr_0x59, __isr_0x5a, __isr_0x5b
+ 132      00000000 
+GAS LISTING isr_stubs.s 			page 9
+
+
+ 132      00000000 
+ 132      00000000 
+ 133 0170 00000000 	        .long __isr_0x5c, __isr_0x5d, __isr_0x5e, __isr_0x5f
+ 133      00000000 
+ 133      00000000 
+ 133      00000000 
+ 134 0180 00000000 	        .long __isr_0x60, __isr_0x61, __isr_0x62, __isr_0x63
+ 134      00000000 
+ 134      00000000 
+ 134      00000000 
+ 135 0190 00000000 	        .long __isr_0x64, __isr_0x65, __isr_0x66, __isr_0x67
+ 135      00000000 
+ 135      00000000 
+ 135      00000000 
+ 136 01a0 00000000 	        .long __isr_0x68, __isr_0x69, __isr_0x6a, __isr_0x6b
+ 136      00000000 
+ 136      00000000 
+ 136      00000000 
+ 137 01b0 00000000 	        .long __isr_0x6c, __isr_0x6d, __isr_0x6e, __isr_0x6f
+ 137      00000000 
+ 137      00000000 
+ 137      00000000 
+ 138 01c0 00000000 	        .long __isr_0x70, __isr_0x71, __isr_0x72, __isr_0x73
+ 138      00000000 
+ 138      00000000 
+ 138      00000000 
+ 139 01d0 00000000 	        .long __isr_0x74, __isr_0x75, __isr_0x76, __isr_0x77
+ 139      00000000 
+ 139      00000000 
+ 139      00000000 
+ 140 01e0 00000000 	        .long __isr_0x78, __isr_0x79, __isr_0x7a, __isr_0x7b
+ 140      00000000 
+ 140      00000000 
+ 140      00000000 
+ 141 01f0 00000000 	        .long __isr_0x7c, __isr_0x7d, __isr_0x7e, __isr_0x7f
+ 141      00000000 
+ 141      00000000 
+ 141      00000000 
+ 142 0200 00000000 	        .long __isr_0x80, __isr_0x81, __isr_0x82, __isr_0x83
+ 142      00000000 
+ 142      00000000 
+ 142      00000000 
+ 143 0210 00000000 	        .long __isr_0x84, __isr_0x85, __isr_0x86, __isr_0x87
+ 143      00000000 
+ 143      00000000 
+ 143      00000000 
+ 144 0220 00000000 	        .long __isr_0x88, __isr_0x89, __isr_0x8a, __isr_0x8b
+ 144      00000000 
+ 144      00000000 
+ 144      00000000 
+ 145 0230 00000000 	        .long __isr_0x8c, __isr_0x8d, __isr_0x8e, __isr_0x8f
+ 145      00000000 
+ 145      00000000 
+ 145      00000000 
+ 146 0240 00000000 	        .long __isr_0x90, __isr_0x91, __isr_0x92, __isr_0x93
+ 146      00000000 
+ 146      00000000 
+GAS LISTING isr_stubs.s 			page 10
+
+
+ 146      00000000 
+ 147 0250 00000000 	        .long __isr_0x94, __isr_0x95, __isr_0x96, __isr_0x97
+ 147      00000000 
+ 147      00000000 
+ 147      00000000 
+ 148 0260 00000000 	        .long __isr_0x98, __isr_0x99, __isr_0x9a, __isr_0x9b
+ 148      00000000 
+ 148      00000000 
+ 148      00000000 
+ 149 0270 00000000 	        .long __isr_0x9c, __isr_0x9d, __isr_0x9e, __isr_0x9f
+ 149      00000000 
+ 149      00000000 
+ 149      00000000 
+ 150 0280 00000000 	        .long __isr_0xa0, __isr_0xa1, __isr_0xa2, __isr_0xa3
+ 150      00000000 
+ 150      00000000 
+ 150      00000000 
+ 151 0290 00000000 	        .long __isr_0xa4, __isr_0xa5, __isr_0xa6, __isr_0xa7
+ 151      00000000 
+ 151      00000000 
+ 151      00000000 
+ 152 02a0 00000000 	        .long __isr_0xa8, __isr_0xa9, __isr_0xaa, __isr_0xab
+ 152      00000000 
+ 152      00000000 
+ 152      00000000 
+ 153 02b0 00000000 	        .long __isr_0xac, __isr_0xad, __isr_0xae, __isr_0xaf
+ 153      00000000 
+ 153      00000000 
+ 153      00000000 
+ 154 02c0 00000000 	        .long __isr_0xb0, __isr_0xb1, __isr_0xb2, __isr_0xb3
+ 154      00000000 
+ 154      00000000 
+ 154      00000000 
+ 155 02d0 00000000 	        .long __isr_0xb4, __isr_0xb5, __isr_0xb6, __isr_0xb7
+ 155      00000000 
+ 155      00000000 
+ 155      00000000 
+ 156 02e0 00000000 	        .long __isr_0xb8, __isr_0xb9, __isr_0xba, __isr_0xbb
+ 156      00000000 
+ 156      00000000 
+ 156      00000000 
+ 157 02f0 00000000 	        .long __isr_0xbc, __isr_0xbd, __isr_0xbe, __isr_0xbf
+ 157      00000000 
+ 157      00000000 
+ 157      00000000 
+ 158 0300 00000000 	        .long __isr_0xc0, __isr_0xc1, __isr_0xc2, __isr_0xc3
+ 158      00000000 
+ 158      00000000 
+ 158      00000000 
+ 159 0310 00000000 	        .long __isr_0xc4, __isr_0xc5, __isr_0xc6, __isr_0xc7
+ 159      00000000 
+ 159      00000000 
+ 159      00000000 
+ 160 0320 00000000 	        .long __isr_0xc8, __isr_0xc9, __isr_0xca, __isr_0xcb
+ 160      00000000 
+ 160      00000000 
+ 160      00000000 
+GAS LISTING isr_stubs.s 			page 11
+
+
+ 161 0330 00000000 	        .long __isr_0xcc, __isr_0xcd, __isr_0xce, __isr_0xcf
+ 161      00000000 
+ 161      00000000 
+ 161      00000000 
+ 162 0340 00000000 	        .long __isr_0xd0, __isr_0xd1, __isr_0xd2, __isr_0xd3
+ 162      00000000 
+ 162      00000000 
+ 162      00000000 
+ 163 0350 00000000 	        .long __isr_0xd4, __isr_0xd5, __isr_0xd6, __isr_0xd7
+ 163      00000000 
+ 163      00000000 
+ 163      00000000 
+ 164 0360 00000000 	        .long __isr_0xd8, __isr_0xd9, __isr_0xda, __isr_0xdb
+ 164      00000000 
+ 164      00000000 
+ 164      00000000 
+ 165 0370 00000000 	        .long __isr_0xdc, __isr_0xdd, __isr_0xde, __isr_0xdf
+ 165      00000000 
+ 165      00000000 
+ 165      00000000 
+ 166 0380 00000000 	        .long __isr_0xe0, __isr_0xe1, __isr_0xe2, __isr_0xe3
+ 166      00000000 
+ 166      00000000 
+ 166      00000000 
+ 167 0390 00000000 	        .long __isr_0xe4, __isr_0xe5, __isr_0xe6, __isr_0xe7
+ 167      00000000 
+ 167      00000000 
+ 167      00000000 
+ 168 03a0 00000000 	        .long __isr_0xe8, __isr_0xe9, __isr_0xea, __isr_0xeb
+ 168      00000000 
+ 168      00000000 
+ 168      00000000 
+ 169 03b0 00000000 	        .long __isr_0xec, __isr_0xed, __isr_0xee, __isr_0xef
+ 169      00000000 
+ 169      00000000 
+ 169      00000000 
+ 170 03c0 00000000 	        .long __isr_0xf0, __isr_0xf1, __isr_0xf2, __isr_0xf3
+ 170      00000000 
+ 170      00000000 
+ 170      00000000 
+ 171 03d0 00000000 	        .long __isr_0xf4, __isr_0xf5, __isr_0xf6, __isr_0xf7
+ 171      00000000 
+ 171      00000000 
+ 171      00000000 
+ 172 03e0 00000000 	        .long __isr_0xf8, __isr_0xf9, __isr_0xfa, __isr_0xfb
+ 172      00000000 
+ 172      00000000 
+ 172      00000000 
+ 173 03f0 00000000 	        .long __isr_0xfc, __isr_0xfd, __isr_0xfe, __isr_0xff
+ 173      00000000 
+ 173      00000000 
+ 173      00000000 
+GAS LISTING isr_stubs.s 			page 12
+
+
+DEFINED SYMBOLS
+         isr_stubs.s:27     .text:000000000000001e __isr_restore
+         isr_stubs.s:4      .text:0000000000000000 isr_save
+         isr_stubs.s:36     .text:000000000000002a __isr_0x00
+         isr_stubs.s:36     .text:0000000000000030 __isr_0x01
+         isr_stubs.s:36     .text:0000000000000036 __isr_0x02
+         isr_stubs.s:36     .text:000000000000003c __isr_0x03
+         isr_stubs.s:37     .text:0000000000000042 __isr_0x04
+         isr_stubs.s:37     .text:0000000000000048 __isr_0x05
+         isr_stubs.s:37     .text:000000000000004e __isr_0x06
+         isr_stubs.s:37     .text:0000000000000054 __isr_0x07
+         isr_stubs.s:38     .text:000000000000005a __isr_0x08
+         isr_stubs.s:38     .text:000000000000005e __isr_0x09
+         isr_stubs.s:38     .text:0000000000000064 __isr_0x0a
+         isr_stubs.s:38     .text:0000000000000068 __isr_0x0b
+         isr_stubs.s:39     .text:000000000000006c __isr_0x0c
+         isr_stubs.s:39     .text:0000000000000070 __isr_0x0d
+         isr_stubs.s:39     .text:0000000000000074 __isr_0x0e
+         isr_stubs.s:39     .text:0000000000000078 __isr_0x0f
+         isr_stubs.s:40     .text:000000000000007e __isr_0x10
+         isr_stubs.s:40     .text:0000000000000087 __isr_0x11
+         isr_stubs.s:40     .text:000000000000008e __isr_0x12
+         isr_stubs.s:40     .text:0000000000000097 __isr_0x13
+         isr_stubs.s:41     .text:00000000000000a0 __isr_0x14
+         isr_stubs.s:41     .text:00000000000000a9 __isr_0x15
+         isr_stubs.s:41     .text:00000000000000b2 __isr_0x16
+         isr_stubs.s:41     .text:00000000000000bb __isr_0x17
+         isr_stubs.s:42     .text:00000000000000c4 __isr_0x18
+         isr_stubs.s:42     .text:00000000000000cd __isr_0x19
+         isr_stubs.s:42     .text:00000000000000d6 __isr_0x1a
+         isr_stubs.s:42     .text:00000000000000df __isr_0x1b
+         isr_stubs.s:43     .text:00000000000000e8 __isr_0x1c
+         isr_stubs.s:43     .text:00000000000000f1 __isr_0x1d
+         isr_stubs.s:43     .text:00000000000000fa __isr_0x1e
+         isr_stubs.s:43     .text:0000000000000103 __isr_0x1f
+         isr_stubs.s:44     .text:000000000000010c __isr_0x20
+         isr_stubs.s:44     .text:0000000000000115 __isr_0x21
+         isr_stubs.s:44     .text:000000000000011e __isr_0x22
+         isr_stubs.s:44     .text:0000000000000127 __isr_0x23
+         isr_stubs.s:45     .text:0000000000000130 __isr_0x24
+         isr_stubs.s:45     .text:0000000000000139 __isr_0x25
+         isr_stubs.s:45     .text:0000000000000142 __isr_0x26
+         isr_stubs.s:45     .text:000000000000014b __isr_0x27
+         isr_stubs.s:46     .text:0000000000000154 __isr_0x28
+         isr_stubs.s:46     .text:000000000000015d __isr_0x29
+         isr_stubs.s:46     .text:0000000000000166 __isr_0x2a
+         isr_stubs.s:46     .text:000000000000016f __isr_0x2b
+         isr_stubs.s:47     .text:0000000000000178 __isr_0x2c
+         isr_stubs.s:47     .text:0000000000000181 __isr_0x2d
+         isr_stubs.s:47     .text:000000000000018a __isr_0x2e
+         isr_stubs.s:47     .text:0000000000000193 __isr_0x2f
+         isr_stubs.s:48     .text:000000000000019c __isr_0x30
+         isr_stubs.s:48     .text:00000000000001a5 __isr_0x31
+         isr_stubs.s:48     .text:00000000000001ae __isr_0x32
+         isr_stubs.s:48     .text:00000000000001b7 __isr_0x33
+         isr_stubs.s:49     .text:00000000000001c0 __isr_0x34
+         isr_stubs.s:49     .text:00000000000001c9 __isr_0x35
+GAS LISTING isr_stubs.s 			page 13
+
+
+         isr_stubs.s:49     .text:00000000000001d2 __isr_0x36
+         isr_stubs.s:49     .text:00000000000001db __isr_0x37
+         isr_stubs.s:50     .text:00000000000001e4 __isr_0x38
+         isr_stubs.s:50     .text:00000000000001ed __isr_0x39
+         isr_stubs.s:50     .text:00000000000001f6 __isr_0x3a
+         isr_stubs.s:50     .text:00000000000001ff __isr_0x3b
+         isr_stubs.s:51     .text:0000000000000208 __isr_0x3c
+         isr_stubs.s:51     .text:0000000000000211 __isr_0x3d
+         isr_stubs.s:51     .text:000000000000021a __isr_0x3e
+         isr_stubs.s:51     .text:0000000000000223 __isr_0x3f
+         isr_stubs.s:52     .text:000000000000022c __isr_0x40
+         isr_stubs.s:52     .text:0000000000000235 __isr_0x41
+         isr_stubs.s:52     .text:000000000000023e __isr_0x42
+         isr_stubs.s:52     .text:0000000000000247 __isr_0x43
+         isr_stubs.s:53     .text:0000000000000250 __isr_0x44
+         isr_stubs.s:53     .text:0000000000000259 __isr_0x45
+         isr_stubs.s:53     .text:0000000000000262 __isr_0x46
+         isr_stubs.s:53     .text:000000000000026b __isr_0x47
+         isr_stubs.s:54     .text:0000000000000274 __isr_0x48
+         isr_stubs.s:54     .text:000000000000027d __isr_0x49
+         isr_stubs.s:54     .text:0000000000000286 __isr_0x4a
+         isr_stubs.s:54     .text:000000000000028f __isr_0x4b
+         isr_stubs.s:55     .text:0000000000000298 __isr_0x4c
+         isr_stubs.s:55     .text:00000000000002a1 __isr_0x4d
+         isr_stubs.s:55     .text:00000000000002aa __isr_0x4e
+         isr_stubs.s:55     .text:00000000000002b3 __isr_0x4f
+         isr_stubs.s:56     .text:00000000000002bc __isr_0x50
+         isr_stubs.s:56     .text:00000000000002c5 __isr_0x51
+         isr_stubs.s:56     .text:00000000000002ce __isr_0x52
+         isr_stubs.s:56     .text:00000000000002d7 __isr_0x53
+         isr_stubs.s:57     .text:00000000000002e0 __isr_0x54
+         isr_stubs.s:57     .text:00000000000002e9 __isr_0x55
+         isr_stubs.s:57     .text:00000000000002f2 __isr_0x56
+         isr_stubs.s:57     .text:00000000000002fb __isr_0x57
+         isr_stubs.s:58     .text:0000000000000304 __isr_0x58
+         isr_stubs.s:58     .text:000000000000030d __isr_0x59
+         isr_stubs.s:58     .text:0000000000000316 __isr_0x5a
+         isr_stubs.s:58     .text:000000000000031f __isr_0x5b
+         isr_stubs.s:59     .text:0000000000000328 __isr_0x5c
+         isr_stubs.s:59     .text:0000000000000331 __isr_0x5d
+         isr_stubs.s:59     .text:000000000000033a __isr_0x5e
+         isr_stubs.s:59     .text:0000000000000343 __isr_0x5f
+         isr_stubs.s:60     .text:000000000000034c __isr_0x60
+         isr_stubs.s:60     .text:0000000000000355 __isr_0x61
+         isr_stubs.s:60     .text:000000000000035e __isr_0x62
+         isr_stubs.s:60     .text:0000000000000367 __isr_0x63
+         isr_stubs.s:61     .text:0000000000000370 __isr_0x64
+         isr_stubs.s:61     .text:0000000000000379 __isr_0x65
+         isr_stubs.s:61     .text:0000000000000382 __isr_0x66
+         isr_stubs.s:61     .text:000000000000038b __isr_0x67
+         isr_stubs.s:62     .text:0000000000000394 __isr_0x68
+         isr_stubs.s:62     .text:000000000000039d __isr_0x69
+         isr_stubs.s:62     .text:00000000000003a6 __isr_0x6a
+         isr_stubs.s:62     .text:00000000000003af __isr_0x6b
+         isr_stubs.s:63     .text:00000000000003b8 __isr_0x6c
+         isr_stubs.s:63     .text:00000000000003c1 __isr_0x6d
+         isr_stubs.s:63     .text:00000000000003ca __isr_0x6e
+GAS LISTING isr_stubs.s 			page 14
+
+
+         isr_stubs.s:63     .text:00000000000003d3 __isr_0x6f
+         isr_stubs.s:64     .text:00000000000003dc __isr_0x70
+         isr_stubs.s:64     .text:00000000000003e5 __isr_0x71
+         isr_stubs.s:64     .text:00000000000003ee __isr_0x72
+         isr_stubs.s:64     .text:00000000000003f7 __isr_0x73
+         isr_stubs.s:65     .text:0000000000000400 __isr_0x74
+         isr_stubs.s:65     .text:0000000000000409 __isr_0x75
+         isr_stubs.s:65     .text:0000000000000412 __isr_0x76
+         isr_stubs.s:65     .text:000000000000041b __isr_0x77
+         isr_stubs.s:66     .text:0000000000000424 __isr_0x78
+         isr_stubs.s:66     .text:000000000000042d __isr_0x79
+         isr_stubs.s:66     .text:0000000000000436 __isr_0x7a
+         isr_stubs.s:66     .text:000000000000043f __isr_0x7b
+         isr_stubs.s:67     .text:0000000000000448 __isr_0x7c
+         isr_stubs.s:67     .text:0000000000000451 __isr_0x7d
+         isr_stubs.s:67     .text:000000000000045a __isr_0x7e
+         isr_stubs.s:67     .text:0000000000000463 __isr_0x7f
+         isr_stubs.s:68     .text:000000000000046c __isr_0x80
+         isr_stubs.s:68     .text:0000000000000478 __isr_0x81
+         isr_stubs.s:68     .text:0000000000000484 __isr_0x82
+         isr_stubs.s:68     .text:0000000000000490 __isr_0x83
+         isr_stubs.s:69     .text:000000000000049c __isr_0x84
+         isr_stubs.s:69     .text:00000000000004a8 __isr_0x85
+         isr_stubs.s:69     .text:00000000000004b4 __isr_0x86
+         isr_stubs.s:69     .text:00000000000004c0 __isr_0x87
+         isr_stubs.s:70     .text:00000000000004cc __isr_0x88
+         isr_stubs.s:70     .text:00000000000004d8 __isr_0x89
+         isr_stubs.s:70     .text:00000000000004e4 __isr_0x8a
+         isr_stubs.s:70     .text:00000000000004f0 __isr_0x8b
+         isr_stubs.s:71     .text:00000000000004fc __isr_0x8c
+         isr_stubs.s:71     .text:0000000000000508 __isr_0x8d
+         isr_stubs.s:71     .text:0000000000000514 __isr_0x8e
+         isr_stubs.s:71     .text:0000000000000520 __isr_0x8f
+         isr_stubs.s:72     .text:000000000000052c __isr_0x90
+         isr_stubs.s:72     .text:0000000000000538 __isr_0x91
+         isr_stubs.s:72     .text:0000000000000544 __isr_0x92
+         isr_stubs.s:72     .text:0000000000000550 __isr_0x93
+         isr_stubs.s:73     .text:000000000000055c __isr_0x94
+         isr_stubs.s:73     .text:0000000000000568 __isr_0x95
+         isr_stubs.s:73     .text:0000000000000574 __isr_0x96
+         isr_stubs.s:73     .text:0000000000000580 __isr_0x97
+         isr_stubs.s:74     .text:000000000000058c __isr_0x98
+         isr_stubs.s:74     .text:0000000000000598 __isr_0x99
+         isr_stubs.s:74     .text:00000000000005a4 __isr_0x9a
+         isr_stubs.s:74     .text:00000000000005b0 __isr_0x9b
+         isr_stubs.s:75     .text:00000000000005bc __isr_0x9c
+         isr_stubs.s:75     .text:00000000000005c8 __isr_0x9d
+         isr_stubs.s:75     .text:00000000000005d4 __isr_0x9e
+         isr_stubs.s:75     .text:00000000000005e0 __isr_0x9f
+         isr_stubs.s:76     .text:00000000000005ec __isr_0xa0
+         isr_stubs.s:76     .text:00000000000005f8 __isr_0xa1
+         isr_stubs.s:76     .text:0000000000000604 __isr_0xa2
+         isr_stubs.s:76     .text:0000000000000610 __isr_0xa3
+         isr_stubs.s:77     .text:000000000000061c __isr_0xa4
+         isr_stubs.s:77     .text:0000000000000628 __isr_0xa5
+         isr_stubs.s:77     .text:0000000000000634 __isr_0xa6
+         isr_stubs.s:77     .text:0000000000000640 __isr_0xa7
+GAS LISTING isr_stubs.s 			page 15
+
+
+         isr_stubs.s:78     .text:000000000000064c __isr_0xa8
+         isr_stubs.s:78     .text:0000000000000658 __isr_0xa9
+         isr_stubs.s:78     .text:0000000000000664 __isr_0xaa
+         isr_stubs.s:78     .text:0000000000000670 __isr_0xab
+         isr_stubs.s:79     .text:000000000000067c __isr_0xac
+         isr_stubs.s:79     .text:0000000000000688 __isr_0xad
+         isr_stubs.s:79     .text:0000000000000694 __isr_0xae
+         isr_stubs.s:79     .text:00000000000006a0 __isr_0xaf
+         isr_stubs.s:80     .text:00000000000006ac __isr_0xb0
+         isr_stubs.s:80     .text:00000000000006b8 __isr_0xb1
+         isr_stubs.s:80     .text:00000000000006c4 __isr_0xb2
+         isr_stubs.s:80     .text:00000000000006d0 __isr_0xb3
+         isr_stubs.s:81     .text:00000000000006dc __isr_0xb4
+         isr_stubs.s:81     .text:00000000000006e8 __isr_0xb5
+         isr_stubs.s:81     .text:00000000000006f4 __isr_0xb6
+         isr_stubs.s:81     .text:0000000000000700 __isr_0xb7
+         isr_stubs.s:82     .text:000000000000070c __isr_0xb8
+         isr_stubs.s:82     .text:0000000000000718 __isr_0xb9
+         isr_stubs.s:82     .text:0000000000000724 __isr_0xba
+         isr_stubs.s:82     .text:0000000000000730 __isr_0xbb
+         isr_stubs.s:83     .text:000000000000073c __isr_0xbc
+         isr_stubs.s:83     .text:0000000000000748 __isr_0xbd
+         isr_stubs.s:83     .text:0000000000000754 __isr_0xbe
+         isr_stubs.s:83     .text:0000000000000760 __isr_0xbf
+         isr_stubs.s:84     .text:000000000000076c __isr_0xc0
+         isr_stubs.s:84     .text:0000000000000778 __isr_0xc1
+         isr_stubs.s:84     .text:0000000000000784 __isr_0xc2
+         isr_stubs.s:84     .text:0000000000000790 __isr_0xc3
+         isr_stubs.s:85     .text:000000000000079c __isr_0xc4
+         isr_stubs.s:85     .text:00000000000007a8 __isr_0xc5
+         isr_stubs.s:85     .text:00000000000007b4 __isr_0xc6
+         isr_stubs.s:85     .text:00000000000007c0 __isr_0xc7
+         isr_stubs.s:86     .text:00000000000007cc __isr_0xc8
+         isr_stubs.s:86     .text:00000000000007d8 __isr_0xc9
+         isr_stubs.s:86     .text:00000000000007e4 __isr_0xca
+         isr_stubs.s:86     .text:00000000000007f0 __isr_0xcb
+         isr_stubs.s:87     .text:00000000000007fc __isr_0xcc
+         isr_stubs.s:87     .text:0000000000000808 __isr_0xcd
+         isr_stubs.s:87     .text:0000000000000814 __isr_0xce
+         isr_stubs.s:87     .text:0000000000000820 __isr_0xcf
+         isr_stubs.s:88     .text:000000000000082c __isr_0xd0
+         isr_stubs.s:88     .text:0000000000000838 __isr_0xd1
+         isr_stubs.s:88     .text:0000000000000844 __isr_0xd2
+         isr_stubs.s:88     .text:0000000000000850 __isr_0xd3
+         isr_stubs.s:89     .text:000000000000085c __isr_0xd4
+         isr_stubs.s:89     .text:0000000000000868 __isr_0xd5
+         isr_stubs.s:89     .text:0000000000000874 __isr_0xd6
+         isr_stubs.s:89     .text:0000000000000880 __isr_0xd7
+         isr_stubs.s:90     .text:000000000000088c __isr_0xd8
+         isr_stubs.s:90     .text:0000000000000898 __isr_0xd9
+         isr_stubs.s:90     .text:00000000000008a4 __isr_0xda
+         isr_stubs.s:90     .text:00000000000008b0 __isr_0xdb
+         isr_stubs.s:91     .text:00000000000008bc __isr_0xdc
+         isr_stubs.s:91     .text:00000000000008c8 __isr_0xdd
+         isr_stubs.s:91     .text:00000000000008d4 __isr_0xde
+         isr_stubs.s:91     .text:00000000000008e0 __isr_0xdf
+         isr_stubs.s:92     .text:00000000000008ec __isr_0xe0
+GAS LISTING isr_stubs.s 			page 16
+
+
+         isr_stubs.s:92     .text:00000000000008f8 __isr_0xe1
+         isr_stubs.s:92     .text:0000000000000904 __isr_0xe2
+         isr_stubs.s:92     .text:0000000000000910 __isr_0xe3
+         isr_stubs.s:93     .text:000000000000091c __isr_0xe4
+         isr_stubs.s:93     .text:0000000000000928 __isr_0xe5
+         isr_stubs.s:93     .text:0000000000000934 __isr_0xe6
+         isr_stubs.s:93     .text:0000000000000940 __isr_0xe7
+         isr_stubs.s:94     .text:000000000000094c __isr_0xe8
+         isr_stubs.s:94     .text:0000000000000958 __isr_0xe9
+         isr_stubs.s:94     .text:0000000000000964 __isr_0xea
+         isr_stubs.s:94     .text:0000000000000970 __isr_0xeb
+         isr_stubs.s:95     .text:000000000000097c __isr_0xec
+         isr_stubs.s:95     .text:0000000000000988 __isr_0xed
+         isr_stubs.s:95     .text:0000000000000994 __isr_0xee
+         isr_stubs.s:95     .text:00000000000009a0 __isr_0xef
+         isr_stubs.s:96     .text:00000000000009ac __isr_0xf0
+         isr_stubs.s:96     .text:00000000000009b8 __isr_0xf1
+         isr_stubs.s:96     .text:00000000000009c4 __isr_0xf2
+         isr_stubs.s:96     .text:00000000000009d0 __isr_0xf3
+         isr_stubs.s:97     .text:00000000000009dc __isr_0xf4
+         isr_stubs.s:97     .text:00000000000009e8 __isr_0xf5
+         isr_stubs.s:97     .text:00000000000009f4 __isr_0xf6
+         isr_stubs.s:97     .text:0000000000000a00 __isr_0xf7
+         isr_stubs.s:98     .text:0000000000000a0c __isr_0xf8
+         isr_stubs.s:98     .text:0000000000000a18 __isr_0xf9
+         isr_stubs.s:98     .text:0000000000000a24 __isr_0xfa
+         isr_stubs.s:98     .text:0000000000000a30 __isr_0xfb
+         isr_stubs.s:99     .text:0000000000000a3c __isr_0xfc
+         isr_stubs.s:99     .text:0000000000000a48 __isr_0xfd
+         isr_stubs.s:99     .text:0000000000000a54 __isr_0xfe
+         isr_stubs.s:99     .text:0000000000000a60 __isr_0xff
+         isr_stubs.s:109    .data:0000000000000000 __isr_stub_table
+
+UNDEFINED SYMBOLS
+__isr_table

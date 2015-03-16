@@ -1,0 +1,151 @@
+##Example input/output
+
+###Black Lager Example###
+###################################################################################
+###                     Beer Style Recommendation System                        ###
+###                                                                             ###
+###                  Author: Brad Israel (bdi8241@cs.rit.edu)                   ###
+###                      Introduction to A.I. - Project 1                       ###
+###################################################################################
+Please follow the prompts to select a beer style
+Available input is inside the brackets, separated by ','
+Code currently doesn't error check input, so it will probably error
+ or not return anything if you mistype something.
+
+Do you like darker or lighter beer? [dark,light]  dark
+Do you like more bitter or more sweet beer? [bitter,sweet]  bitter
+Do you like beer that's refreshing (crisp) or hoppy (dry)? [refreshing,hoppy]  hoppy
+Do you like beer with a higher or lower alcohol content? [high,low]  high
+
+You have decided on a darker beer style that is both bitter and hoppy with a higher alcoholic content.
+
+I would look for a good BLACK LAGER
+
+Do you want to see the full proof output and statistics? [y,n]  y
+Proof:
+dark -> bitter for options [ltdk] and [bs]
+bitter -> hoppy for options [bs] and [rh]
+hoppy -> high for options [rh] and [abv]
+high -> black lager for options [abv] and [recommendation]
+
+
+Statistics:
+Time to generate rules: 0.00432 secs, 2780 asserts/sec
+Time for proof: 0.00034 secs
+beer: 3 fact names, 0 universal facts, 12 case_specific facts
+beerrules: 15 fc_rules, 8 triggered, 0 rerun
+beerrules: 0 bc_rules, 0 goals, 0 rules matched
+           0 successes, 0 failures
+
+###IPA Example###
+Do you like darker or lighter beer? [dark,light]  light
+Do you like more bitter or more sweet beer? [bitter,sweet]  bitter
+Do you like beer that's refreshing (crisp) or hoppy (dry)? [refreshing,hoppy]  hoppy
+Do you like beer with a higher or lower alcohol content? [high,low]  high
+
+You have decided on a lighter beer style that is both bitter and hoppy with a higher alcoholic content.
+
+I would look for a good IPA
+
+Do you want to see the full proof output and statistics? [y,n]  y
+Proof:
+light -> bitter for options [ltdk] and [bs]
+bitter -> hoppy for options [bs] and [rh]
+hoppy -> high for options [rh] and [abv]
+high -> ipa for options [abv] and [recommendation]
+
+
+Statistics:
+Time to generate rules: 0.00443 secs, 2707 asserts/sec
+Time for proof: 0.00035 secs
+beer: 3 fact names, 0 universal facts, 12 case_specific facts
+beerrules: 15 fc_rules, 8 triggered, 0 rerun
+beerrules: 0 bc_rules, 0 goals, 0 rules matched
+           0 successes, 0 failures
+
+###Hefeweizen or Amber Ale Example###
+Do you like darker or lighter beer? [dark,light]  light
+Do you like more bitter or more sweet beer? [bitter,sweet]  sweet
+Do you like beer that's refreshing (crisp) or hoppy (dry)? [refreshing,hoppy]  refreshing
+Do you like beer with a higher or lower alcohol content? [high,low]  high
+
+You have decided on a lighter beer style that is both sweet and refreshing with a higher alcoholic content.
+
+I would look for a good HEFEWIEZEN or AMBER ALE
+
+Do you want to see the full proof output and statistics? [y,n]  y
+Proof:
+light -> sweet for options [ltdk] and [bs]
+sweet -> refreshing for options [bs] and [rh]
+refreshing -> high for options [rh] and [abv]
+high -> hefewiezen for options [abv] and [recommendation]
+high -> amber ale for options [abv] and [recommendation]
+
+
+Statistics:
+Time to generate rules: 0.00456 secs, 2850 asserts/sec
+Time for proof: 0.00041 secs
+beer: 3 fact names, 0 universal facts, 13 case_specific facts
+beerrules: 15 fc_rules, 9 triggered, 0 rerun
+beerrules: 0 bc_rules, 0 goals, 0 rules matched
+           0 successes, 0 failures
+
+###No Proof/Stats Example###
+Do you like darker or lighter beer? [dark,light]  dark
+Do you like more bitter or more sweet beer? [bitter,sweet]  sweet
+Do you like beer that's refreshing (crisp) or hoppy (dry)? [refreshing,hoppy]  refreshing
+Do you like beer with a higher or lower alcohol content? [high,low]  high
+
+You have decided on a darker beer style that is both sweet and refreshing with a higher alcoholic content.
+
+I would look for a good BROWN LAGER
+
+Do you want to see the full proof output and statistics? [y,n]  n
+
+###Mistype Error Example###
+Do you like darker or lighter beer? [dark,light]  dark
+Do you like more bitter or more sweet beer? [bitter,sweet]  bisdfsfsdf
+Do you like beer that's refreshing (crisp) or hoppy (dry)? [refreshing,hoppy]  hoppy
+Do you like beer with a higher or lower alcohol content? [high,low]  low
+
+Sorry, your choices didn't return a beer style ... if all else fails try a good LAGER!
+
+
+Do you want to see the full proof output and statistics? [y,n]  y
+Proof:
+dark -> bisdfsfsdf for options [ltdk] and [bs]
+bisdfsfsdf -> hoppy for options [bs] and [rh]
+hoppy -> low for options [rh] and [abv]
+
+
+Statistics:
+Time to generate rules: 0.00409 secs, 2688 asserts/sec
+Time for proof: 0.00031 secs
+beer: 3 fact names, 0 universal facts, 11 case_specific facts
+beerrules: 15 fc_rules, 7 triggered, 0 rerun
+beerrules: 0 bc_rules, 0 goals, 0 rules matched
+           0 successes, 0 failures
+
+###No User Input Error Example###
+Do you like darker or lighter beer? [dark,light]
+Do you like more bitter or more sweet beer? [bitter,sweet]
+Do you like beer that's refreshing (crisp) or hoppy (dry)? [refreshing,hoppy]
+Do you like beer with a higher or lower alcohol content? [high,low]
+
+Sorry, your choices didn't return a beer style ... if all else fails try a good LAGER!
+
+
+Do you want to see the full proof output and statistics? [y,n]  y
+Proof:
+ ->  for options [ltdk] and [bs]
+ ->  for options [bs] and [rh]
+ ->  for options [rh] and [abv]
+
+
+Statistics:
+Time to generate rules: 0.00375 secs, 2936 asserts/sec
+Time for proof: 0.00028 secs
+beer: 3 fact names, 0 universal facts, 11 case_specific facts
+beerrules: 15 fc_rules, 7 triggered, 0 rerun
+beerrules: 0 bc_rules, 0 goals, 0 rules matched
+           0 successes, 0 failures

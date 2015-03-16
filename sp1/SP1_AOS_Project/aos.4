@@ -1,0 +1,69 @@
+#
+# A simple AOS test program
+#
+# Tests all opcodes, and forward & backward references
+#
+# Data area 1
+#
+A	BSS	1
+B	BSS	2
+C	BSS	3
+D	BSS	2
+E	BSS	1
+F	BSS	1
+G	BSS	1
+H	BSS	1
+#
+# Input initial values
+#
+Run	HALT
+#
+	LA	A
+	LA	B
+	LA	C
+	LA	D
+	LA	E
+	LA	F
+	LA	G
+	LA	H
+#
+	L	P
+	L	O
+	L	N
+	L	M
+	L	L
+	L	K
+	L	J
+	L	I
+#
+	OP	*
+	OP	/
+	OP	+
+	OP	%
+	OP	-
+#
+	JZ	Run
+	JZ	Loop
+	CALL	Run
+	CALL	Loop
+#
+Loop	NG
+	ST
+	STAL
+	READ
+	PRT
+	RET
+	JP	Loop
+#
+# Data area 2
+#
+I	BSS	1
+J	BSS	2
+K	BSS	3
+L	BSS	2
+M	BSS	1
+N	BSS	1
+O	BSS	1
+P	BSS	1
+#
+	END	Run

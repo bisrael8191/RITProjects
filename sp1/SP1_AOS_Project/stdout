@@ -1,0 +1,12 @@
+A      0000
+GO     0002
+RUN    0005
+
+
+Start at: 0002
+
+
+0000              A   BSS  1
+0002   90 0005    GO  JP   RUN
+0005   10 0000    RUN LA   A
+0008                  END  GO
