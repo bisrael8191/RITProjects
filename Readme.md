@@ -1,4 +1,4 @@
-#**R.I.T Class Projects**
+#**[RIT](http://www.rit.edu) Class Projects**
 (20074) [Artificial Intelligence](ai/) - Python expert system for choosing beer styles based on user input
 
 (20073) [Grid Computing I](grid/) - Data collection and display for grids

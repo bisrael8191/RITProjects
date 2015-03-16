@@ -3,6 +3,7 @@
 Distributed fractal generator for use on an Ad-hoc network. Makes use of Professor Kaminsky's [Tuple Board Library](http://www.cs.rit.edu/~ark/tb.shtml).
 
 Julia Fractal Screenshot:
+
 ![Julia Fractal](JuliaFractal_Screenshot.png)
 
 **Report 1** [PDF](Report1.pdf) | [ODP](Report1.odp) | [PPT](Report1.ppt)
