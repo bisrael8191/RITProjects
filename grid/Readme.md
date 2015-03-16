@@ -15,7 +15,9 @@ Code: [ZIP](cyberaide-webprojects.zip)
 Main SVN for the entire class: [http://cyberaide.googlecode.com/svn/trunk/](http://cyberaide.googlecode.com/svn/trunk/)
 
 Web interface screenshot:
+
 ![Client](client.png)
 
 Picture of how our class's projects fit together:
+
 ![Class Architecture](class_arch.png)

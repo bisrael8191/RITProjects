@@ -25,31 +25,41 @@ UML Design: [Game Logic UML](R2_GameLogicUML.png) | [Game UI UML](R2_GameUIUML.p
 Screenshots:
 
 Student Login Screen
+
 ![Login](game_login.png)
 
 Student Login Screen - Choose game
+
 ![Choose game](game_login1.png)
 
 Game Instructions
+
 ![Instructions](game_inst.png)
 
 Student Game Play
+
 ![Game Play](game_game.png)
 
 Student Game Play - Correct Answer
+
 ![Correct Answer](game_game1.png)
 
 Student Game Play - Incorrect Answer
+
 ![Incorrect Answer](game_game2.png)
 
 Student Game Play - Get a certificate of progress at the end of the game
+
 ![Certificate](game_cert.png)
 
 Administration Screen - Adding/Modifying Questions
+
 ![Admin Questions](admin_questions.png)
 
 Administration Screen - Student Progress
+
 ![Admin Progress](admin_student.png)
 
 School Board Class Viewer
+
 ![Class View](class_viewer.png)

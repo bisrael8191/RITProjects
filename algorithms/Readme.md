@@ -10,7 +10,9 @@ Graph Output:
 (Dark lines are the original edges in the graph. Light lines represents the connected graph edges.)
 
 P14 - Planar graph with 20 nodes:
+
 ![P14](p14.png)
 
 P33 - Planar graph with 33 nodes:
+
 ![P33](p33.png)

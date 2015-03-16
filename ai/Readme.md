@@ -15,4 +15,5 @@ Report: [PDF](pr1_bdi8241.pdf)
 Code: [ZIP](pr1_bdi8241.zip)
 
 Demo Screenshot:
+
 ![Beer Screenshot](beer_screen.png)
